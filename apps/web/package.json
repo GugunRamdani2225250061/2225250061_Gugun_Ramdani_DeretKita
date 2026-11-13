@@ -1,0 +1,26 @@
+{
+  "name": "deretkita",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "build:offline": "vite build --mode offline && node scripts/rename-offline.mjs",
+    "preview": "vite preview --host",
+    "icons": "node scripts/make-icons.mjs",
+    "test": "node --test src/lib/geometri.test.js src/content/konten.test.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.46.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11",
+    "vite-plugin-pwa": "^0.21.1",
+    "vite-plugin-singlefile": "^2.0.3"
+  }
+}
