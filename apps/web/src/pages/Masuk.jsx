@@ -21,6 +21,7 @@ export default function Masuk() {
   return (
     <Halaman judul="DeretKita" kembali={null}>
       <section className="kartu sambutan">
+        <div className="sambutan-ikon" aria-hidden>🦠 📄 🏀 💬 💰</div>
         <h2>Selamat datang!</h2>
         <p>Belajar <strong>barisan dan deret geometri</strong> dari kejadian sehari-hari: bakteri membelah, bola memantul, pesan berantai, dan tabungan.</p>
       </section>

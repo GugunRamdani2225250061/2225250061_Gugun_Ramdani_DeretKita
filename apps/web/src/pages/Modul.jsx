@@ -94,8 +94,10 @@ function Modul({ id }) {
     const b = getProgres(modul.id).bintang
     konten = (
       <section className="kartu selesai-modul">
-        <div className="bintang-besar" aria-label={`${b} bintang`}>{'★'.repeat(b)}{'☆'.repeat(3 - b)}</div>
-        <h2>Modul selesai!</h2>
+        <div className="bintang-besar" aria-label={`${b} bintang`}>
+          {[0, 1, 2].map((i) => <span key={i} style={{ animationDelay: `${i * 0.2}s` }}>{i < b ? '★' : '☆'}</span>)}
+        </div>
+        <h2>🎉 Modul selesai!</h2>
         <p>{b === 3 ? 'Hebat, hampir semua langkah benar pada percobaan pertama.' : b === 2 ? 'Bagus! Ulangi modul ini jika ingin lebih yakin.' : 'Tidak apa-apa. Coba ulangi materinya pelan-pelan, lalu kerjakan lagi.'}</p>
         <div className="navigasi kolom">
           {berikut && <button className="btn" onClick={() => nav(`/modul/${berikut.id}`)}>Lanjut: {berikut.judul}</button>}
@@ -108,7 +110,7 @@ function Modul({ id }) {
   }
 
   return (
-    <Halaman judul={modul.judul}>
+    <Halaman judul={`${modul.ikon} ${modul.judul}`} warna={modul.warna}>
       <div className="bar-progres tipis" aria-label={`Progres modul ${persen}%`}><span style={{ width: `${persen}%` }} /></div>
       {konten}
     </Halaman>

@@ -2,7 +2,18 @@
 // jenis segmen: 'kartu' (pre-training), 'materi', 'contoh' (worked example; langkah dengan `kosong` = fading)
 // Markup teks: [a:..] biru, [r:..] oranye, [n:..] hijau, **tebal**, baris baru = \n
 
-export const MODUL = [
+// Warna & ikon tiap modul (hanya untuk tampilan, tidak dipakai di dalam rumus)
+const TEMA = {
+  M0: { ikon: '🔤', warna: '#7c3aed' },
+  M1: { ikon: '✖️', warna: '#2563eb' },
+  M2: { ikon: '🔢', warna: '#0891b2' },
+  M3: { ikon: '🏀', warna: '#059669' },
+  M4: { ikon: '➕', warna: '#d97706' },
+  M5: { ikon: '⚖️', warna: '#db2777' },
+  M6: { ikon: '🏆', warna: '#dc2626' },
+}
+
+const DAFTAR = [
   {
     id: 'M0', judul: 'Kenali Istilah', ringkas: 'Kosakata penting sebelum mulai', menit: 5,
     segmen: [
@@ -129,5 +140,7 @@ export const MODUL = [
     refleksi: 'Jika kamu boleh memilih hadiah selama 30 hari, tawaran mana yang kamu pilih? Mengapa?',
   },
 ]
+
+export const MODUL = DAFTAR.map((m) => ({ ...m, ...TEMA[m.id] }))
 
 export const cariModul = (id) => MODUL.find((m) => m.id === id)

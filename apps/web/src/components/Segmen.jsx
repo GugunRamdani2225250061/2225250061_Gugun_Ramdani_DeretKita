@@ -61,7 +61,7 @@ export default function Segmen({ s, onSiap }) {
   useEffect(() => { if (s.jenis !== 'contoh') onSiap(true) }, [s, onSiap])
   return (
     <section className={`kartu segmen segmen-${s.jenis}`}>
-      <p className="label-jenis">{s.jenis === 'kartu' ? 'Istilah' : s.jenis === 'contoh' ? 'Contoh soal' : 'Materi'}</p>
+      <p className={`chip chip-${s.jenis}`}>{s.jenis === 'kartu' ? '💡 Istilah' : s.jenis === 'contoh' ? '✏️ Contoh soal' : '📖 Materi'}</p>
       <h2>{s.judul}</h2>
       {s.visual && <Visual v={s.visual} />}
       {s.teks && <Teks>{s.teks}</Teks>}

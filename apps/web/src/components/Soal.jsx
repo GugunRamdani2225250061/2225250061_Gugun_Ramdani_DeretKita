@@ -130,7 +130,7 @@ export default function Soal({ soal, id, modeUjiCoba, onSelesai }) {
   return (
     <section className="kartu soal">
       <div className="kepala-soal">
-        <p className="label-jenis">Soal {soal.konteks ? `· ${soal.konteks}` : ''}</p>
+        <p className="chip chip-soal">🎯 Soal {soal.konteks ? `· ${soal.konteks}` : ''}</p>
         {modeUjiCoba && soal.status !== 'siap' && <span className="lencana">uji coba</span>}
       </div>
       <h2>{soal.judul}</h2>

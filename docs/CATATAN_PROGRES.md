@@ -4,6 +4,14 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 13 November 2026 — Tampilan lebih berwarna
+- **Yang dikerjakan**: setiap modul punya warna & ikon sendiri (dipakai di daftar modul, kepala halaman, tombol, progres). Kepala & kartu sapaan bergradasi; label layar berwarna (💡 Istilah, 📖 Materi, ✏️ Contoh, 🎯 Soal); huruf pilihan ganda berwarna; skala usaha mental hijau (ringan) → merah (berat); animasi bintang saat modul selesai. Warna simbol **a/r/n** di rumus tidak diubah (prinsip *signaling*).
+- **File yang berubah**: `apps/web/src/styles.css` (blok "TEMA WARNA-WARNI" di akhir file), `content/modul.js` (TEMA warna & ikon), `Beranda.jsx`, `Modul.jsx`, `Layout.jsx`, `Segmen.jsx`, `Soal.jsx`, `RatingBeban.jsx`, `Masuk.jsx`, `coba/DeretKita.html`.
+- **Cara mengecek**: buka web atau `coba/DeretKita.html`. Untuk mengganti warna sebuah modul, ubah kode warna di `TEMA` pada `apps/web/src/content/modul.js`.
+- **Hasil uji**: `npm test` 7/7 lulus, uji browser 22/22 lulus, tidak ada error di konsol.
+
+---
+
 ## 13 November 2026 — Aplikasi versi awal selesai & diuji
 - **Yang dikerjakan**:
   - Aplikasi React + Vite lengkap: 7 modul materi, 18 soal (13 bank soal + 5 cek), contoh terurai dengan fading, soal literasi 4 langkah, petunjuk bertingkat, umpan balik miskonsepsi, rating Paas, mode uji coba (persepsi kesulitan), refleksi, Kalkulator Pola, angket Leppink & SUS, Dasbor guru (unduh CSV + analisis Python), pengaturan huruf besar.
