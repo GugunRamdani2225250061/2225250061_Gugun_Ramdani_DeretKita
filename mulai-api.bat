@@ -19,7 +19,7 @@ echo.
 echo ==========================================================
 echo  API Python + Kak Deret : http://localhost:8000/docs
 echo  Cek Kak Deret aktif    : http://localhost:8000/ai/status
-echo  (API key DeepSeek diisi di file .env, lihat docs\PANDUAN_AI_DEEPSEEK.md)
+echo  (Key AI gratis OpenRouter diisi di file .env: AI_API_KEY, lihat docs\PANDUAN_AI_DEEPSEEK.md)
 echo  Jika Windows bertanya izin jaringan, pilih "Allow" agar HP bisa terhubung.
 echo  Berhenti               : tekan Ctrl+C
 echo ==========================================================

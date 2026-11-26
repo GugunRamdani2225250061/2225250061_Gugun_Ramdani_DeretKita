@@ -80,7 +80,7 @@ Ukuran build: ±75 KB gzip untuk JS utama. Pustaka Supabase hanya diunduh jika S
 | GET | `/ai/status` | apakah Kak Deret aktif (API key DeepSeek terisi) |
 | POST | `/ai` | body `{mode: mediasi\|refleksi\|tanya, konteks, pesan, riwayat}` → `{jawaban}`; diteruskan ke DeepSeek `deepseek-flash` |
 
-**Kak Deret (AI)**: `services/api/ai.py` menyusun prompt mediator RMT, memanggil `https://api.deepseek.com/chat/completions` dengan `DEEPSEEK_API_KEY` dari `.env` (tidak pernah ke browser), dan membatasi pemakaian (per perangkat per 10 menit & per hari). Panduan: [PANDUAN_AI_DEEPSEEK.md](PANDUAN_AI_DEEPSEEK.md). Deploy online: `render.yaml` (Render Blueprint).
+**Kak Deret (AI)**: `services/api/ai.py` menyusun prompt mediator RMT dan memanggil penyedia AI berformat OpenAI `/chat/completions` sesuai `.env` (`AI_PROVIDER`: **openrouter** gratis (default), deepseek, groq, gemini, ollama). Jika `AI_MODEL` kosong, server mengambil daftar model penyedia lalu memilih maksimal 3 model gratis terbaik (`pilih_model`), dan otomatis mencoba model berikutnya bila kena 429/404/5xx. Key (`AI_API_KEY`) tidak pernah ke browser. Pemakaian dibatasi per perangkat per 10 menit & per hari. Panduan: [PANDUAN_AI_DEEPSEEK.md](PANDUAN_AI_DEEPSEEK.md). Deploy online: `render.yaml` (Render Blueprint).
 
 **Tampilan**: `components/Sidebar.jsx` (menu kiri), `LatarMatematika.jsx` + `Bentuk.jsx` (bangun datar/ruang SVG), `GridModul.jsx`, `RmtTahap.jsx`, `KakDeret.jsx`; halaman `Beranda` (lobi), `DaftarModul`, `AngketMenu`, `Tanya`, `Rmt`.
 

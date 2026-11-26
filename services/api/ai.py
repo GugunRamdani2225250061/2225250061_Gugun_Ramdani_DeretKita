@@ -90,42 +90,112 @@ class GalatAI(Exception):
         self.pesan = pesan
 
 
-def panggil_deepseek(messages):
-    """Memanggil DeepSeek. Dipisah agar mudah diganti saat pengujian."""
-    key = os.getenv("DEEPSEEK_API_KEY", "").strip()
-    if not key:
-        raise GalatAI(503, "API key DeepSeek belum diisi di file .env server (DEEPSEEK_API_KEY).")
-    body = {
-        "model": os.getenv("DEEPSEEK_MODEL", MODEL_DEFAULT),
-        "messages": messages,
-        "max_tokens": 400,
-        "temperature": 0.5,
-        "thinking": {"type": "disabled"},  # jawaban cepat & hemat
-        "stream": False,
-    }
-    dasar = os.getenv("DEEPSEEK_BASE_URL", "").strip().rstrip("/")
-    req = urllib.request.Request(
-        f"{dasar}/chat/completions" if dasar else URL_DEEPSEEK,
-        data=json.dumps(body).encode(),
-        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-        method="POST",
-    )
+# ---------- Penyedia AI (semua memakai format OpenAI /chat/completions) ----------
+# Pilih lewat .env:  AI_PROVIDER=openrouter | deepseek | groq | gemini | ollama
+PENYEDIA = {
+    "openrouter": {"nama": "OpenRouter", "url": "https://openrouter.ai/api/v1", "gratis": True,
+                   "header": {"X-OpenRouter-Title": "DeretKita"}},
+    "deepseek": {"nama": "DeepSeek", "url": "https://api.deepseek.com", "model": MODEL_DEFAULT,
+                 "tambahan": {"thinking": {"type": "disabled"}}},  # jawaban cepat & hemat
+    "groq": {"nama": "Groq", "url": "https://api.groq.com/openai/v1"},
+    "gemini": {"nama": "Google Gemini", "url": "https://generativelanguage.googleapis.com/v1beta/openai"},
+    "ollama": {"nama": "Ollama (laptop)", "url": "http://localhost:11434/v1", "tanpa_key": True},
+}
+# urutan model yang diutamakan saat memilih otomatis (DeepSeek dulu, lalu model besar yang bagus)
+PREFERENSI = ["deepseek", "gemma-4-31b", "nemotron-3-ultra", "nemotron-3.5-super", "gemini", "gpt-oss",
+              "llama-4", "llama-3.3-70b", "qwen", "gemma", "llama", "mistral", "nemotron"]
+TOLAK = ["whisper", "tts", "embed", "guard", "audio", "image", "moderation", "1.7b", "-1b", "omni", "vl", "reasoning"]
+
+
+def konfigurasi():
+    """Membaca pilihan penyedia dari .env. Kompatibel dengan pengaturan lama (DEEPSEEK_*)."""
+    kode = os.getenv("AI_PROVIDER", "").strip().lower()
+    if not kode:
+        kode = "deepseek" if os.getenv("DEEPSEEK_API_KEY", "").strip() and not os.getenv("AI_API_KEY", "").strip() else "openrouter"
+    p = PENYEDIA.get(kode, PENYEDIA["openrouter"])
+    key = os.getenv("AI_API_KEY", "").strip() or (os.getenv("DEEPSEEK_API_KEY", "").strip() if kode == "deepseek" else "")
+    url = (os.getenv("AI_BASE_URL", "") or (os.getenv("DEEPSEEK_BASE_URL", "") if kode == "deepseek" else "")).strip().rstrip("/") or p["url"]
+    model = os.getenv("AI_MODEL", "").strip() or (os.getenv("DEEPSEEK_MODEL", "").strip() if kode == "deepseek" else "") or p.get("model", "")
+    return {"kode": kode, "nama": p["nama"], "url": url, "key": key, "model": model, "penyedia": p}
+
+
+def _minta(url, key, body=None, header=None, timeout=45):
+    h = {"Content-Type": "application/json", **(header or {})}
+    if key:
+        h["Authorization"] = f"Bearer {key}"
+    req = urllib.request.Request(url, data=json.dumps(body).encode() if body is not None else None, headers=h,
+                                 method="POST" if body is not None else "GET")
+    with urllib.request.urlopen(req, timeout=timeout) as res:
+        return json.load(res)
+
+
+_cache_model = {"kunci": None, "waktu": 0, "daftar": []}
+
+
+def pilih_model(ids, gratis_saja):
+    """Memilih maksimal 3 model terbaik dari daftar id (untuk cadangan bila kuota satu model habis)."""
+    kandidat = [i for i in ids if (i.endswith(":free") or not gratis_saja) and not any(t in i.lower() for t in TOLAK)]
+    def skor(i):
+        low = i.lower()
+        return next((n for n, kata in enumerate(PREFERENSI) if kata in low), len(PREFERENSI))
+    return sorted(kandidat, key=skor)[:3]
+
+
+def daftar_model(cfg):
+    if cfg["model"]:
+        return [m.strip() for m in cfg["model"].split(",") if m.strip()]
+    kunci = (cfg["kode"], cfg["url"])
+    if _cache_model["kunci"] == kunci and time.time() - _cache_model["waktu"] < 3600 and _cache_model["daftar"]:
+        return _cache_model["daftar"]
     try:
-        with urllib.request.urlopen(req, timeout=45) as res:
-            data = json.load(res)
+        data = _minta(f"{cfg['url']}/models", cfg["key"], timeout=20)
+        ids = [m.get("id", "") for m in data.get("data", [])]
     except urllib.error.HTTPError as e:
-        pesan = {
-            401: "API key DeepSeek salah atau sudah dihapus.",
-            402: "Saldo DeepSeek habis. Isi saldo di platform.deepseek.com.",
-            429: "Terlalu banyak permintaan ke DeepSeek. Tunggu sebentar.",
-        }.get(e.code, f"DeepSeek menolak permintaan (kode {e.code}).")
-        raise GalatAI(502, pesan) from e
-    except (urllib.error.URLError, TimeoutError) as e:
-        raise GalatAI(504, "Tidak bisa terhubung ke DeepSeek. Periksa internet server.") from e
-    try:
-        return data["choices"][0]["message"]["content"].strip()
-    except (KeyError, IndexError, TypeError) as e:
-        raise GalatAI(502, "Jawaban DeepSeek tidak bisa dibaca.") from e
+        if e.code in (401, 403):
+            raise GalatAI(502, f"API key {cfg['nama']} salah atau sudah dihapus.") from e
+        raise GalatAI(502, f"{cfg['nama']} menolak permintaan daftar model (kode {e.code}).") from e
+    except (urllib.error.URLError, TimeoutError, ValueError) as e:
+        raise GalatAI(504, f"Tidak bisa mengambil daftar model dari {cfg['nama']}.") from e
+    pilihan = pilih_model([i.removeprefix("models/") for i in ids], cfg["penyedia"].get("gratis", False))
+    if not pilihan:
+        raise GalatAI(503, f"Tidak ada model gratis yang cocok di {cfg['nama']} saat ini.")
+    _cache_model.update(kunci=kunci, waktu=time.time(), daftar=pilihan)
+    return pilihan
+
+
+def panggil_ai(messages):
+    """Memanggil penyedia AI yang dipilih. Jika kuota/model gagal, mencoba model cadangan."""
+    cfg = konfigurasi()
+    if not cfg["key"] and not cfg["penyedia"].get("tanpa_key"):
+        raise GalatAI(503, f"API key {cfg['nama']} belum diisi di file .env server (AI_API_KEY).")
+    galat = None
+    for model in daftar_model(cfg):
+        body = {"model": model, "messages": messages, "max_tokens": 400, "temperature": 0.5, "stream": False,
+                **cfg["penyedia"].get("tambahan", {})}
+        try:
+            data = _minta(f"{cfg['url']}/chat/completions", cfg["key"], body, cfg["penyedia"].get("header"))
+            teks = (data["choices"][0]["message"].get("content") or "").strip()
+            if teks:
+                return teks
+            galat = GalatAI(502, "AI tidak memberi jawaban. Coba lagi.")
+        except urllib.error.HTTPError as e:
+            if e.code in (401, 403):
+                raise GalatAI(502, f"API key {cfg['nama']} salah atau sudah dihapus.") from e
+            if e.code == 402:
+                raise GalatAI(502, f"Saldo {cfg['nama']} habis.") from e
+            # 429 (kuota habis), 404/400 (model tidak tersedia), 5xx -> coba model berikutnya
+            galat = GalatAI(429 if e.code == 429 else 502,
+                            "Kuota AI gratis sedang habis. Coba lagi beberapa menit lagi." if e.code == 429
+                            else f"{cfg['nama']} menolak permintaan (kode {e.code}).")
+        except (urllib.error.URLError, TimeoutError) as e:
+            galat = GalatAI(504, f"Tidak bisa terhubung ke {cfg['nama']}. Periksa internet server.")
+        except (KeyError, IndexError, TypeError, ValueError):
+            galat = GalatAI(502, "Jawaban AI tidak bisa dibaca.")
+    _cache_model["daftar"] = []  # pilih ulang model pada permintaan berikutnya
+    raise galat or GalatAI(502, "AI tidak bisa dihubungi.")
+
+
+panggil_deepseek = panggil_ai  # nama lama (kompatibel)
 
 
 # ---------- pembatas pemakaian (melindungi saldo) ----------
@@ -152,4 +222,5 @@ def cek_batas(ip, sekarang=None):
 
 
 def aktif():
-    return bool(os.getenv("DEEPSEEK_API_KEY", "").strip())
+    cfg = konfigurasi()
+    return bool(cfg["key"]) or bool(cfg["penyedia"].get("tanpa_key"))

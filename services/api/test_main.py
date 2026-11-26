@@ -24,7 +24,7 @@ def test_ai_mediasi(monkeypatch):
         terkirim["m"] = messages
         return "Coba lihat: berapa kali bakteri membelah dalam 2 jam?"
 
-    monkeypatch.setattr(ai, "panggil_deepseek", palsu)
+    monkeypatch.setattr(ai, "panggil_ai", palsu)
     r = c.post("/ai", json={
         "mode": "mediasi", "pesan": "aku bingung",
         "konteks": {"tahap_rmt": 3, "judul": "Pembelahan bakteri", "kunci": "320", "jawaban_siswa": ["160"]},
@@ -94,3 +94,56 @@ def test_analisis():
     assert g01["soal_id"] == "G01" and g01["p"] == 0.5 and g01["kategori"] == "sedang"
     assert h["butir"]["soal"][1]["rekomendasi"].startswith("SEDERHANAKAN")
     assert h["angket"]["sus"]["rata"] == 100
+
+
+def _bersihkan_env(monkeypatch):
+    for k in ["AI_PROVIDER", "AI_API_KEY", "AI_MODEL", "AI_BASE_URL", "DEEPSEEK_API_KEY", "DEEPSEEK_MODEL", "DEEPSEEK_BASE_URL"]:
+        monkeypatch.delenv(k, raising=False)
+    ai._cache_model.update(kunci=None, waktu=0, daftar=[])
+
+
+def test_pilih_model_gratis_otomatis():
+    ids = ["openai/gpt-x", "liquid/lfm-3-1.7b:free", "google/gemma-4-31b-it:free", "nvidia/nemotron-3-ultra-550b-a55b:free",
+           "nvidia/nemotron-3.5-super-vl:free", "baidu/ernie-5.5-flash-preview:free"]
+    p = ai.pilih_model(ids, gratis_saja=True)
+    assert p[0] == "google/gemma-4-31b-it:free" and p[1] == "nvidia/nemotron-3-ultra-550b-a55b:free"
+    assert all(i.endswith(":free") for i in p) and "liquid/lfm-3-1.7b:free" not in p
+    assert ai.pilih_model(ids + ["deepseek/deepseek-v4:free"], True)[0] == "deepseek/deepseek-v4:free"
+
+
+def test_openrouter_cadangan_saat_kuota_habis(monkeypatch):
+    import io
+    import json as js
+    import urllib.error
+
+    _bersihkan_env(monkeypatch)
+    monkeypatch.setenv("AI_PROVIDER", "openrouter")
+    monkeypatch.setenv("AI_API_KEY", "sk-or-uji")
+    dicoba = []
+
+    class Res(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): pass
+
+    def urlopen_palsu(req, timeout=0):
+        if req.full_url.endswith("/models"):
+            assert req.get_header("Authorization") == "Bearer sk-or-uji"
+            return Res(js.dumps({"data": [{"id": "google/gemma-4-31b-it:free"}, {"id": "nvidia/nemotron-3-ultra-550b-a55b:free"}, {"id": "openai/gpt-x"}]}).encode())
+        body = js.loads(req.data)
+        dicoba.append(body["model"])
+        assert req.full_url == "https://openrouter.ai/api/v1/chat/completions" and "thinking" not in body
+        if body["model"].startswith("google/"):
+            raise urllib.error.HTTPError(req.full_url, 429, "rate limited", {}, None)
+        return Res(js.dumps({"choices": [{"message": {"content": "Coba hitung 6 : 3."}}]}).encode())
+
+    monkeypatch.setattr(ai.urllib.request, "urlopen", urlopen_palsu)
+    assert ai.panggil_ai([{"role": "user", "content": "x"}]) == "Coba hitung 6 : 3."
+    assert dicoba == ["google/gemma-4-31b-it:free", "nvidia/nemotron-3-ultra-550b-a55b:free"]
+    s = c.get("/ai/status").json()
+    assert s["aktif"] is True and s["penyedia"] == "OpenRouter"
+
+
+def test_ollama_tanpa_key(monkeypatch):
+    _bersihkan_env(monkeypatch)
+    monkeypatch.setenv("AI_PROVIDER", "ollama")
+    assert ai.aktif() is True and ai.konfigurasi()["url"] == "http://localhost:11434/v1"

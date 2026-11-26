@@ -1,5 +1,5 @@
 # Blueprint Render.com: menjalankan API Python (Kak Deret + analisis) secara online, gratis.
-# Render > New > Blueprint > pilih repo ini. Isi DEEPSEEK_API_KEY saat diminta.
+# Render > New > Blueprint > pilih repo ini. Isi AI_API_KEY (key OpenRouter gratis) saat diminta.
 services:
   - type: web
     name: deretkita-api
@@ -11,10 +11,10 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.7
-      - key: DEEPSEEK_API_KEY
+      - key: AI_PROVIDER
+        value: openrouter
+      - key: AI_API_KEY
         sync: false
-      - key: DEEPSEEK_MODEL
-        value: deepseek-flash
       - key: AI_BATAS_PER_10_MENIT
         value: "20"
       - key: AI_BATAS_HARIAN

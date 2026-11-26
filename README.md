@@ -26,13 +26,13 @@ Klik dua kali **`coba/DeretKita.html`**. Aplikasi terbuka di browser dan semua f
 2. **`cek-python.bat`**: cek semua kunci jawaban + contoh analisis uji coba.
 3. **`mulai-api.bat`**: menjalankan API Python. Di aplikasi: **Dasbor Guru → Analisis dengan Python**.
 
-### 🤖 Kak Deret (AI DeepSeek)
-1. Buat API key di https://platform.deepseek.com/api_keys (isi saldo dulu).
-2. Buka file **`.env`** di folder ini → isi `DEEPSEEK_API_KEY=sk-...` → simpan.
+### 🤖 Kak Deret (AI GRATIS lewat OpenRouter)
+1. Buat key **gratis** (tanpa top up/kartu) di https://openrouter.ai/keys.
+2. Buka file **`.env`** di folder ini → isi `AI_API_KEY=sk-or-...` → simpan.
 3. Jalankan **`mulai-api.bat`** lalu **`mulai-aplikasi.bat`**.
 4. Di aplikasi: tombol **🤖 Tanya Kak Deret** di setiap soal, atau menu kiri **Kak Deret**.
 
-API key **tidak pernah** ditaruh di kode/GitHub. Panduan lengkap (termasuk agar aktif di web online lewat Render.com): [docs/PANDUAN_AI_DEEPSEEK.md](docs/PANDUAN_AI_DEEPSEEK.md).
+Server memilih model gratis terbaik secara otomatis dan pindah ke cadangan bila kuota habis (batas gratis ±50 pertanyaan/hari). Bisa juga memakai DeepSeek berbayar, Groq, Gemini, atau Ollama, cukup ubah `.env`. API key **tidak pernah** ditaruh di kode/GitHub. Panduan lengkap: [docs/PANDUAN_AI_DEEPSEEK.md](docs/PANDUAN_AI_DEEPSEEK.md).
 
 ---
 
@@ -47,7 +47,7 @@ API key **tidak pernah** ditaruh di kode/GitHub. Panduan lengkap (termasuk agar 
 ## Fitur
 - **Lobi** penuh warna dengan bangun datar, bangun ruang, dan rumus melayang; **menu vertikal di kiri** (di HP menjadi kolom ikon dan disembunyikan saat belajar agar fokus)
 - **Model pembelajaran RMT** (*Rigorous Mathematical Thinking*): setiap layar modul menunjukkan tahapnya. Amati & kenali → Bangun konsep → Terapkan & hubungkan ([docs/RMT.md](docs/RMT.md))
-- **Kak Deret**: tutor AI (DeepSeek) sebagai mediator RMT, membimbing dengan pertanyaan, tidak memberi jawaban langsung
+- **Kak Deret**: tutor AI (gratis lewat OpenRouter; bisa juga DeepSeek/Groq/Gemini/Ollama) sebagai mediator RMT, membimbing dengan pertanyaan, tidak memberi jawaban langsung
 - **Huruf bisa diganti** (Pengaturan atau tombol "Aa" di menu): 7 jenis huruf (Lexend, Nunito, Poppins, Atkinson Hyperlegible, Fredoka, Comic Neue, bawaan HP) dan 4 ukuran. Huruf tersimpan di aplikasi, jadi tetap jalan offline.
 - **Menu kiri lengkap** (13 menu dalam 4 kelompok): Lobi, Modul, ⚡ Latihan Kilat (soal acak), 📐 Kartu Rumus, 📖 Kamus Istilah, Kak Deret, Kalkulator, Model RMT, 🏅 Lencana, Angket, Pengaturan, ❓ Bantuan, Dasbor Guru. Ditambah progres mini, "rumus kilat", dan hiasan bangun ruang
 - 7 modul: pre-training istilah → pola dikali → suku ke-n → pola mengecil → deret → geometri vs aritmetika → tantangan literasi
@@ -73,7 +73,7 @@ API key **tidak pernah** ditaruh di kode/GitHub. Panduan lengkap (termasuk agar 
 | [docs/BANK_SOAL_DRAFT.md](docs/BANK_SOAL_DRAFT.md) | 13 draft soal + kunci |
 | [docs/INSTRUMEN.md](docs/INSTRUMEN.md) | Instrumen penelitian A–H |
 | [docs/RMT.md](docs/RMT.md) | Model pembelajaran RMT & penerapannya |
-| [docs/PANDUAN_AI_DEEPSEEK.md](docs/PANDUAN_AI_DEEPSEEK.md) | Cara memasang & memakai Kak Deret (API key DeepSeek) |
+| [docs/PANDUAN_AI_DEEPSEEK.md](docs/PANDUAN_AI_DEEPSEEK.md) | Cara memasang & memakai Kak Deret (AI gratis OpenRouter & pilihan lain) |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Jadwal & tugas |
 | [docs/AI_WORKFLOW.md](docs/AI_WORKFLOW.md) | Cara kerja dengan AI + daftar cross-check |
 | [docs/CATATAN_PROGRES.md](docs/CATATAN_PROGRES.md) | Catatan setiap sesi kerja |

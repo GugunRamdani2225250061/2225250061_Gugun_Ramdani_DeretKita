@@ -4,6 +4,20 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — Kak Deret memakai AI GRATIS (OpenRouter)
+- **Yang dikerjakan**:
+  - `services/api/ai.py` kini mendukung banyak penyedia AI lewat `.env` (`AI_PROVIDER`): **openrouter (gratis, default)**, deepseek (berbayar), groq, gemini, ollama (di laptop). Semua memakai format OpenAI.
+  - Jika `AI_MODEL` kosong, server **memilih otomatis** model gratis terbaik dari daftar model penyedia (diutamakan DeepSeek bila ada yang gratis) dan menyiapkan 2 cadangan. Jika satu model kena batas kuota (429) atau tidak tersedia, otomatis pindah ke model berikutnya.
+  - Dicek langsung ke OpenRouter: 477 model, 11 gratis, **belum ada DeepSeek gratis** saat ini. Pilihan otomatis saat ini: `google/gemma-4-31b-it:free` → `nvidia/nemotron-3-ultra-550b-a55b:free` → `google/gemma-4-26b-a4b-it:free`.
+  - `.env` ditambah `AI_PROVIDER=openrouter`, `AI_API_KEY=` (kosong, menunggu key). Key DeepSeek lama tetap tersimpan tetapi tidak dipakai.
+  - Panduan `docs/PANDUAN_AI_DEEPSEEK.md` ditulis ulang untuk versi gratis; `render.yaml`, `.env.example`, README, CLAUDE.md, ARCHITECTURE diperbarui.
+- **Hasil uji**: `pytest` 11/11 (termasuk pemilihan model gratis, pindah ke cadangan saat 429, Ollama tanpa key). `npm test` 8/8, uji browser 45/45, kunci jawaban benar. Server dengan `.env` asli: `"penyedia": "OpenRouter", "aktif": false` (karena key belum diisi).
+- **Cara mengecek (untuk Gugun)**: buat key gratis di https://openrouter.ai/keys → isi `AI_API_KEY=` di `.env` → jalankan `mulai-api.bat` → buka `http://localhost:8000/ai/status` (harus `"aktif": true`) → coba Tanya Kak Deret.
+- **Yang belum / masalah**: key OpenRouter belum dibuat (harus dibuat sendiri dengan akun Anda). Batas gratis **±50 pertanyaan/hari**: cukup untuk uji coba beberapa siswa, kurang untuk satu kelas penuh. Model gratis bisa sesekali keliru; periksa jawabannya saat uji coba.
+- **Langkah berikutnya**: isi key → uji Kak Deret → (opsional) deploy server ke Render agar aktif di web online.
+
+---
+
 ## 26 November 2026 — Objek bergerak juga tampil di smartphone
 - **Yang dikerjakan**: panel "Bangun Ruang" dan "Bangun Datar & Pola" (8 kartu objek bergerak) kini juga tampil di HP & tablet, di bawah formulir masuk, sebagai baris yang **bisa digeser** (swipe) dengan tanda "geser →". Di laptop tetap menjadi kolom kiri & kanan.
 - **File yang berubah**: `components/ObjekBergerak.jsx`, `styles.css`, `coba/DeretKita.html`.

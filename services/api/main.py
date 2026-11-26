@@ -58,7 +58,8 @@ class PermintaanAI(BaseModel):
 
 @app.get("/ai/status")
 def ai_status():
-    return {"aktif": ai.aktif(), "model": os.getenv("DEEPSEEK_MODEL", ai.MODEL_DEFAULT)}
+    cfg = ai.konfigurasi()
+    return {"aktif": ai.aktif(), "penyedia": cfg["nama"], "model": cfg["model"] or "otomatis (model gratis terbaik)"}
 
 
 @app.post("/ai")
@@ -67,7 +68,7 @@ def tanya_ai(data: PermintaanAI, request: Request):
     try:
         messages = ai.susun_pesan(data.mode, data.konteks, data.pesan, data.riwayat)
         ai.cek_batas(request.client.host if request.client else "?")
-        return {"jawaban": ai.panggil_deepseek(messages)}
+        return {"jawaban": ai.panggil_ai(messages)}
     except ValueError as e:
         raise HTTPException(400, str(e))
     except ai.GalatAI as e:

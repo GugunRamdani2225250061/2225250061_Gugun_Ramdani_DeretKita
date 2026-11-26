@@ -1,88 +1,99 @@
-# Panduan Kak Deret (AI DeepSeek)
+# Panduan Kak Deret (AI): versi GRATIS
 
-**Kak Deret** adalah tutor AI di DeretKita. Perannya sebagai **mediator** dalam model *Rigorous Mathematical Thinking* (RMT): ia **tidak memberi jawaban langsung**, tetapi membimbing siswa dengan pertanyaan pemandu yang singkat.
+**Kak Deret** adalah tutor AI di DeretKita. Ia berperan sebagai **mediator** dalam model *Rigorous Mathematical Thinking* (RMT): **tidak memberi jawaban langsung**, tetapi membimbing siswa dengan pertanyaan pemandu yang singkat.
 
-## 🔐 Aturan keamanan API key (penting!)
-- API key **hanya** ditulis di file **`.env`** (di laptop) atau di pengaturan **Render** (server online).
-- **Jangan pernah** menulis API key di kode aplikasi, di GitHub, di grup WhatsApp, atau di chat AI.
+Sekarang Kak Deret memakai **OpenRouter (gratis, tanpa top up)**. Server Python **memilih sendiri model gratis terbaik** yang tersedia (saat diuji: *Google Gemma 4 31B*) dan **otomatis pindah ke model cadangan** bila kuota satu model habis.
+
+## 🔐 Aturan keamanan API key
+- API key **hanya** ditulis di file **`.env`** (laptop) atau di pengaturan **Render** (server online).
+- **Jangan** menulis key di kode, GitHub, grup WhatsApp, atau chat AI.
 - File `.env` sudah diatur agar **tidak ikut ter-upload** ke GitHub.
-- Jika key bocor: buka https://platform.deepseek.com/api_keys → hapus key lama → buat key baru.
-
-Mengapa tidak ditaruh di aplikasi web? Karena aplikasi web bisa dilihat isinya oleh siapa saja. Jika key ada di sana, orang lain bisa memakai saldo Anda.
+- Jika key bocor: buka https://openrouter.ai/keys → hapus key → buat yang baru.
 
 ---
 
-## Langkah 1: Buat API key DeepSeek
-1. Daftar/masuk di https://platform.deepseek.com
-2. Menu **Top up**: isi saldo (pemakaian dipotong dari saldo; Rp20.000–50.000 cukup untuk uji coba).
-3. Menu **API keys** → **Create new API key** → beri nama `DeretKita` → **salin key** (`sk-...`). Key hanya ditampilkan sekali.
+## Langkah 1: Buat key OpenRouter gratis (±3 menit)
+1. Buka https://openrouter.ai → **Sign in** (bisa dengan akun Google). **Tidak perlu kartu atau top up.**
+2. Buka https://openrouter.ai/keys → **Create Key** → beri nama `DeretKita` → **Create**.
+3. **Salin key** (diawali `sk-or-...`). Key hanya ditampilkan sekali.
 
-> Biaya model `deepseek-flash` (per 1 juta token): input ±$0,15–0,30, output ±$0,60–1,20. Satu pertanyaan Kak Deret biasanya < 2.000 token, jadi sekitar **ribuan pertanyaan** untuk $1.
-
-## Langkah 2: Pakai di laptop (untuk uji coba di kelas)
-1. Buka file **`.env`** di folder utama proyek (sudah dibuatkan). Di VS Code: klik `.env` di panel kiri.
-2. Isi baris ini dengan key Anda, lalu **Simpan** (Ctrl+S):
+## Langkah 2: Tempel key di laptop
+1. Di VS Code, buka file **`.env`** (folder utama proyek).
+2. Cari baris `AI_API_KEY=` lalu tempel key-nya:
    ```
-   DEEPSEEK_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxx
+   AI_PROVIDER=openrouter
+   AI_API_KEY=sk-or-xxxxxxxxxxxxxxxx
    ```
-3. Klik dua kali **`mulai-api.bat`** (server Python + Kak Deret). Biarkan jendela hitamnya terbuka.
-4. Klik dua kali **`mulai-aplikasi.bat`**, lalu buka `http://localhost:5173`.
-5. Cek: buka `http://localhost:8000/ai/status` → harus tertulis `"aktif": true`.
+3. Simpan (Ctrl+S).
 
-**Siswa memakai HP di Wi-Fi yang sama?** Buka aplikasi dari alamat *Network* (mis. `http://192.168.1.5:5173`). Lalu isi `.env`:
-```
-VITE_API_URL=http://192.168.1.5:8000
-```
-(ganti dengan IP laptop Anda), lalu jalankan ulang `mulai-aplikasi.bat`.
+## Langkah 3: Jalankan
+1. Klik dua kali **`mulai-api.bat`** (biarkan jendela hitam terbuka).
+2. Klik dua kali **`mulai-aplikasi.bat`** → buka `http://localhost:5173`.
+3. Cek: `http://localhost:8000/ai/status` → `"aktif": true, "penyedia": "OpenRouter"`.
+4. Kerjakan soal → tekan **🤖 Tanya Kak Deret**.
 
-## Langkah 3: Pakai online (web GitHub Pages, bisa dari mana saja)
-Server Python perlu online. Gunakan **Render.com** (gratis):
-1. Daftar di https://render.com memakai akun GitHub.
-2. **New → Blueprint** → pilih repo `2225250061_Gugun_Ramdani_DeretKita` → Render membaca file `render.yaml`.
-3. Saat diminta, isi **DEEPSEEK_API_KEY** dengan key Anda → **Apply**.
-4. Tunggu ±5 menit. Salin alamat server, mis. `https://deretkita-api.onrender.com`. Cek: buka `…/ai/status` → `"aktif": true`.
-5. Di GitHub repo: **Settings → Secrets and variables → Actions → tab Variables → New repository variable**:
-   - Name: `VITE_API_URL`
-   - Value: `https://deretkita-api.onrender.com`
-6. Tab **Actions** → proses teratas → **Re-run all jobs**. Setelah hijau, Kak Deret aktif di web online.
-
-> Server gratis Render "tidur" jika 15 menit tidak dipakai. Pertanyaan pertama setelah tidur butuh ±1 menit. Buka `…/health` beberapa menit sebelum kelas dimulai.
+**Siswa memakai HP di Wi-Fi yang sama?** Buka aplikasi dari alamat *Network* (mis. `http://192.168.1.5:5173`), lalu isi di `.env`: `VITE_API_URL=http://192.168.1.5:8000` (ganti dengan IP laptop) dan jalankan ulang `mulai-aplikasi.bat`.
 
 ---
+
+## ⚠️ Batas versi gratis (OpenRouter, November 2026)
+| | Batas |
+|---|---|
+| Per menit | 20 pertanyaan |
+| Per hari (akun belum pernah beli kredit) | **50 pertanyaan** |
+| Per hari (jika pernah beli kredit ≥ $10) | 1.000 pertanyaan |
+
+**Artinya:** cukup untuk **uji coba dengan beberapa siswa** (mis. siswa yang diwawancara). Untuk **satu kelas penuh** sekaligus, 50/hari kemungkinan kurang. Pilihan saat itu:
+- Gunakan Kak Deret bergiliran / hanya untuk soal tertentu, **atau**
+- Pindah penyedia (cukup ubah `.env`, tanpa mengubah kode), lihat tabel di bawah.
+
+Jika kuota habis, siswa melihat pesan "Kuota AI gratis sedang habis"; **aplikasi tetap berjalan** (petunjuk & pembahasan tetap ada).
+
+## Ganti penyedia (cukup ubah `.env`)
+| `AI_PROVIDER` | Biaya | Key dari | Catatan |
+|---|---|---|---|
+| `openrouter` | **Gratis** (50/hari) | https://openrouter.ai/keys | Default. Model gratis dipilih otomatis |
+| `groq` | Gratis dengan batas | https://console.groq.com/keys | Cepat; batasnya cek di situs Groq |
+| `gemini` | Gratis dengan batas | https://aistudio.google.com/apikey | Model Google Gemini |
+| `ollama` | Gratis penuh, offline | tanpa key | Pasang https://ollama.com di laptop + unduh model (mis. `ollama pull gemma3`); butuh RAM ≥ 8 GB, lebih lambat |
+| `deepseek` | Berbayar (top up) | https://platform.deepseek.com | Key DeepSeek Anda sudah ada di `.env` (saldo 0) |
+
+Untuk memaksa model tertentu, isi `AI_MODEL=nama/model` (boleh beberapa, pisahkan koma sebagai cadangan).
+
+---
+
+## Kak Deret di web online (GitHub Pages)
+Server Python harus online. Gunakan **Render.com** (gratis):
+1. Daftar di https://render.com dengan akun GitHub.
+2. **New → Blueprint** → pilih repo `2225250061_Gugun_Ramdani_DeretKita` (Render membaca `render.yaml`).
+3. Isi **AI_API_KEY** dengan key OpenRouter → **Apply**. Tunggu ±5 menit.
+4. Salin alamat server (mis. `https://deretkita-api.onrender.com`), cek `…/ai/status` → `"aktif": true`.
+5. GitHub repo → **Settings → Secrets and variables → Actions → Variables → New repository variable**: `VITE_API_URL` = alamat server tadi.
+6. Tab **Actions** → proses teratas → **Re-run all jobs**.
+
+> Server gratis Render "tidur" jika 15 menit tidak dipakai; pertanyaan pertama setelah tidur butuh ±1 menit. Buka `…/health` sebelum kelas dimulai.
 
 ## Cara siswa memakai Kak Deret
-| Di mana | Cara | Mode |
-|---|---|---|
-| **Setiap soal** | Tombol **🤖 Tanya Kak Deret** di bawah soal → pilih "Aku bingung mulai dari mana" / "Kenapa jawabanku salah?" atau ketik sendiri | Mediasi (RMT tahap 3) |
-| **Contoh soal** | Tombol **Tanya Kak Deret tentang contoh ini** | Mediasi (RMT tahap 2) |
-| **Refleksi akhir modul** | Setelah menulis refleksi → **Minta tanggapan Kak Deret** | Refleksi (pujian, meluruskan, transendensi) |
-| **Menu kiri → Kak Deret** | Tanya bebas tentang barisan & deret geometri | Tanya |
-
-Contoh percakapan:
-> **Siswa:** Kenapa jawabanku salah? (menjawab rasio = 3 untuk 3, 6, 12, 24)
-> **Kak Deret:** Kamu menghitung 6 − 3, ya? Pada barisan geometri kita mencari **pengali** yang tetap. Coba hitung 6 : 3 dan 12 : 6. Apa yang kamu dapat?
-
-## Pengaturan (file `.env` / Render)
-| Nama | Isi | Keterangan |
-|---|---|---|
-| `DEEPSEEK_API_KEY` | `sk-...` | **wajib** |
-| `DEEPSEEK_MODEL` | `deepseek-flash` | atau `deepseek-v4-pro` (lebih pintar, ±4× lebih mahal) |
-| `AI_BATAS_PER_10_MENIT` | `20` | batas pertanyaan per perangkat per 10 menit |
-| `AI_BATAS_HARIAN` | `1000` | batas total pertanyaan per hari (melindungi saldo) |
+| Di mana | Cara |
+|---|---|
+| Setiap soal | Tombol **🤖 Tanya Kak Deret** → "Aku bingung mulai dari mana" / "Kenapa jawabanku salah?" atau ketik sendiri |
+| Contoh soal | **Tanya Kak Deret tentang contoh ini** |
+| Refleksi akhir modul | **Minta tanggapan Kak Deret** |
+| Menu kiri → Kak Deret | Tanya bebas tentang barisan & deret geometri |
 
 ## Data penelitian
-Setiap soal mencatat **`ai_dipakai`** (berapa kali siswa bertanya ke Kak Deret). Kolom ini ada di **Dasbor Guru** (kolom *AI*) dan di **CSV uji coba**, sehingga bisa dianalisis bersama skor dan beban kognitif. Penggunaan Kak Deret juga dihitung sebagai `butuh_bantuan = 1`.
+Setiap soal mencatat **`ai_dipakai`** (berapa kali siswa bertanya ke Kak Deret), tampil di Dasbor Guru dan CSV uji coba.
 
 ## Jika ada masalah
-| Pesan | Penyebab & solusi |
+| Pesan | Solusi |
 |---|---|
-| "Server Python belum berjalan atau belum online" | Jalankan `mulai-api.bat`, atau cek server Render & variabel `VITE_API_URL` |
-| "API key DeepSeek belum diisi" | Isi `DEEPSEEK_API_KEY` di `.env`, lalu tutup & jalankan ulang `mulai-api.bat` |
-| "API key DeepSeek salah atau sudah dihapus" | Buat key baru di platform.deepseek.com |
-| "Saldo DeepSeek habis" | Top up di platform.deepseek.com |
-| "Kamu sudah banyak bertanya…" | Batas per 10 menit tercapai (disengaja agar siswa berpikir dulu) |
+| "Server Python belum berjalan" | Jalankan `mulai-api.bat`, atau cek server Render & `VITE_API_URL` |
+| "API key AI belum diisi" | Isi `AI_API_KEY` di `.env`, tutup & jalankan ulang `mulai-api.bat` |
+| "API key OpenRouter salah" | Buat key baru di openrouter.ai/keys |
+| "Kuota AI gratis sedang habis" | Tunggu (batas per menit) atau besok (batas harian), atau ganti penyedia |
+| "Kamu sudah banyak bertanya…" | Batas per perangkat per 10 menit (disengaja agar siswa berpikir dulu) |
+
+**Penting:** model gratis bisa sesekali keliru. Saat uji coba, **baca beberapa jawaban Kak Deret** dan pastikan ia membimbing tanpa membocorkan jawaban.
 
 ## Catatan teknis
-- Kode: `services/api/ai.py` (prompt mediator RMT, panggilan DeepSeek, batas pemakaian), endpoint `POST /ai` dan `GET /ai/status` di `services/api/main.py`, tampilan `apps/web/src/components/KakDeret.jsx`.
-- DeepSeek dipanggil di `https://api.deepseek.com/chat/completions` (format OpenAI), `max_tokens` 400, mode *thinking* dimatikan agar cepat & hemat.
-- Kunci jawaban dikirim ke AI sebagai konteks rahasia (agar AI bisa menilai cara berpikir siswa) dengan instruksi tegas untuk tidak menyebutkannya. **Tetap periksa** contoh percakapan saat uji coba, karena AI bisa saja keliru.
+`services/api/ai.py`: prompt mediator RMT, daftar penyedia (`PENYEDIA`), pemilihan model gratis otomatis (`pilih_model`), cadangan otomatis saat 429, batas pemakaian. Semua penyedia memakai format OpenAI `/chat/completions`.

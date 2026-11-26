@@ -48,7 +48,7 @@ export default function KakDeret({ mode = 'mediasi', konteks, aksiCepat = [], on
           Kak Deret belum aktif.{' '}
           {status.alasan === 'server'
             ? 'Server Python belum berjalan atau belum online (jalankan mulai-api.bat).'
-            : 'API key DeepSeek belum diisi di file .env server.'}
+            : 'API key AI belum diisi di file .env server (AI_API_KEY, gratis dari openrouter.ai/keys).'}
           <br /><small>Panduan: docs/PANDUAN_AI_DEEPSEEK.md</small>
         </div>
       )}
