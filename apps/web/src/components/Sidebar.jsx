@@ -28,6 +28,7 @@ export const GRUP_MENU = [
       { ke: '/lencana', ikon: '🏅', nama: 'Lencana' },
       { ke: '/angket', ikon: '📝', nama: 'Angket' },
       { ke: '/pengaturan', ikon: '⚙️', nama: 'Pengaturan' },
+      { ke: '/hp', ikon: '📱', nama: 'Buka di HP' },
       { ke: '/bantuan', ikon: '❓', nama: 'Bantuan' },
     ],
   },

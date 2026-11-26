@@ -13,7 +13,9 @@ if not exist node_modules (
 echo.
 echo ==========================================================
 echo  Buka di laptop : http://localhost:5173
-echo  Buka di HP     : alamat "Network" di bawah (HP harus satu Wi-Fi)
+echo  Buka di HP     : menu "Buka di HP" (kode QR), atau alamat "Network" di bawah
+echo                   (HP harus satu Wi-Fi dengan laptop; Kak Deret ikut jalan)
+echo  Jika Windows bertanya izin jaringan untuk Node.js, pilih "Allow".
 echo  Berhenti       : tekan Ctrl+C
 echo ==========================================================
 echo.

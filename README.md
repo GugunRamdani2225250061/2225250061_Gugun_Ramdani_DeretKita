@@ -10,10 +10,11 @@ Gugun Ramdani (2225250061), S1 Pendidikan Matematika.
 ### Cara 1: Langsung, tanpa memasang apa pun
 Klik dua kali **`coba/DeretKita.html`**. Aplikasi terbuka di browser dan semua fitur bisa dicoba (data tersimpan di browser itu).
 
-### Cara 2: Mode pengembangan (bisa dibuka di HP satu Wi-Fi)
-1. Pasang **Node.js LTS** dari https://nodejs.org (sekali saja).
-2. Klik dua kali **`mulai-aplikasi.bat`**.
-3. Laptop: buka `http://localhost:5173`. HP: buka alamat **Network** yang muncul di jendela hitam.
+### Cara 2: Dari laptop ke HP siswa (satu Wi-Fi, Kak Deret ikut jalan) ⭐
+1. Pasang **Node.js LTS** (https://nodejs.org) dan **Python 3** (sekali saja).
+2. Klik dua kali **`mulai-semua.bat`** (server Python + aplikasi sekaligus).
+3. Laptop: buka `http://localhost:5173` → menu **📱 Buka di HP** → siswa **memindai kode QR** dengan kamera HP (HP di Wi-Fi/hotspot yang sama).
+4. Semua fitur jalan di HP, termasuk **Kak Deret**.
 
 ### Cara 3: Online dan bisa di-*install* di HP (tanpa Play Store)
 1. Upload ke GitHub (lihat bawah).

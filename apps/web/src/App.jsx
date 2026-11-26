@@ -19,6 +19,7 @@ import KartuRumus from './pages/KartuRumus.jsx'
 import Kamus from './pages/Kamus.jsx'
 import Lencana from './pages/Lencana.jsx'
 import Bantuan from './pages/Bantuan.jsx'
+import BukaDiHP from './pages/BukaDiHP.jsx'
 import { terapkanHuruf } from './lib/fonts.js'
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
       <Route path="/kamus" element={<Kamus />} />
       <Route path="/lencana" element={wajibMasuk(<Lencana />)} />
       <Route path="/bantuan" element={<Bantuan />} />
+      <Route path="/hp" element={<BukaDiHP />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

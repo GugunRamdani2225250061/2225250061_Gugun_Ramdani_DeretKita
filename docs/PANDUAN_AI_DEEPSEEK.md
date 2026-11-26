@@ -32,7 +32,14 @@ Sekarang Kak Deret memakai **OpenRouter (gratis, tanpa top up)**. Server Python 
 3. Cek: `http://localhost:8000/ai/status` → `"aktif": true, "penyedia": "OpenRouter"`.
 4. Kerjakan soal → tekan **🤖 Tanya Kak Deret**.
 
-**Siswa memakai HP di Wi-Fi yang sama?** Buka aplikasi dari alamat *Network* (mis. `http://192.168.1.5:5173`), lalu isi di `.env`: `VITE_API_URL=http://192.168.1.5:8000` (ganti dengan IP laptop) dan jalankan ulang `mulai-aplikasi.bat`.
+## 📱 Memakai Kak Deret di smartphone siswa (Wi-Fi yang sama)
+Tidak perlu pengaturan tambahan:
+1. Klik dua kali **`mulai-semua.bat`** di laptop (menyalakan server Python + aplikasi sekaligus).
+2. Di laptop buka `http://localhost:5173` → menu kiri **📱 Buka di HP**.
+3. Siswa menyambungkan HP ke **Wi-Fi yang sama** (boleh hotspot HP guru), lalu **memindai kode QR** dengan kamera.
+4. Aplikasi terbuka di HP, dan **Kak Deret langsung bisa dipakai**: pertanyaan dari HP diteruskan otomatis ke server Python di laptop.
+
+Jika HP tidak bisa membuka: saat pertama menjalankan, Windows menanyakan izin jaringan untuk *Node.js*/*Python*, jadi pilih **Allow**. Pastikan juga laptop tidak memakai Wi-Fi "Public" yang memblokir perangkat lain.
 
 ---
 

@@ -4,6 +4,19 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — Aplikasi & Kak Deret bisa dipakai di smartphone (Wi-Fi)
+- **Yang dikerjakan**:
+  - Alamat server Python kini **ditentukan otomatis** (`lib/ai.js`). Jika aplikasi dibuka dari server aplikasi di laptop (termasuk dari HP lewat Wi-Fi), pertanyaan AI dikirim ke `/api` lalu **diteruskan** ke server Python di laptop (`vite.config.js`, proxy). HP tidak perlu pengaturan apa pun.
+  - Halaman baru **📱 Buka di HP** (menu kiri): 2 **kode QR**, yaitu Wi-Fi (alamat laptop terdeteksi otomatis) & versi online, plus tombol salin dan langkah singkat.
+  - File baru **`mulai-semua.bat`**: menyalakan server Python & aplikasi sekaligus.
+  - Dasbor juga memakai alamat server otomatis (analisis Python bisa dari HP).
+- **File yang berubah**: `apps/web/vite.config.js`, `src/lib/ai.js`, `src/pages/BukaDiHP.jsx` (baru), `App.jsx`, `Sidebar.jsx`, `Dasbor.jsx`, `styles.css`, `package.json` (+ `qrcode-generator`), `mulai-semua.bat` (baru), `mulai-aplikasi.bat`, README, panduan AI.
+- **Hasil uji**: simulasi HP 360px membuka aplikasi lewat IP Wi-Fi laptop (`http://192.168.43.158:5173`): masuk, tanya Kak Deret (lewat `/api` → server Python), dan QR menunjuk ke alamat yang benar. Semua lulus, tanpa error. Uji lengkap 45/45, `npm test` 8/8, `pytest` 11/11.
+- **Cara mengecek (untuk Gugun)**: isi `AI_API_KEY` di `.env` → klik dua kali `mulai-semua.bat` → di laptop buka menu **Buka di HP** → pindai QR dengan HP (Wi-Fi sama) → coba Tanya Kak Deret.
+- **Yang belum / masalah**: Kak Deret di **versi online** (GitHub Pages, dari luar Wi-Fi) tetap butuh server di Render.com. Versi Wi-Fi tidak bisa di-*install* sebagai aplikasi (butuh HTTPS); untuk di-*install*, pakai QR versi online.
+
+---
+
 ## 27 November 2026 — Kak Deret memakai AI GRATIS (OpenRouter)
 - **Yang dikerjakan**:
   - `services/api/ai.py` kini mendukung banyak penyedia AI lewat `.env` (`AI_PROVIDER`): **openrouter (gratis, default)**, deepseek (berbayar), groq, gemini, ollama (di laptop). Semua memakai format OpenAI.

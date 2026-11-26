@@ -4,7 +4,7 @@ import { useStore, hapusSemuaData } from '../lib/store.js'
 import { ringkasPerSoal, keCSV, unduh, rata } from '../lib/statistik.js'
 import { SOAL } from '../content/soal.js'
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+import { alamatAPI as API } from '../lib/ai.js'
 const f = (v, d = 2) => (v === null || v === undefined ? '-' : (+v).toFixed(d).replace('.', ','))
 
 export default function Dasbor() {
