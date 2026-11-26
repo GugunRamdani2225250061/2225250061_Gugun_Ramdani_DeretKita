@@ -4,6 +4,7 @@ import { useStore, masuk, pilihProfil } from '../lib/store.js'
 import { kirimAntrean } from '../lib/sinkron.js'
 import LatarMatematika from '../components/LatarMatematika.jsx'
 import Bentuk from '../components/Bentuk.jsx'
+import { PanelKiri, PanelKanan, StripObjek } from '../components/ObjekBergerak.jsx'
 
 export default function Masuk() {
   const { daftarProfil } = useStore()
@@ -22,12 +23,14 @@ export default function Masuk() {
   return (
     <main className="halaman-masuk">
       <LatarMatematika />
+      <PanelKiri />
       <div className="masuk-isi">
         <div className="masuk-logo">
           <Bentuk jenis="kubus" warna="#fbbf24" ukuran={64} />
           <h1>Deret<span>Kita</span></h1>
           <p>Petualangan Barisan &amp; Deret Geometri</p>
         </div>
+        <StripObjek />
 
         <section className="kartu sambutan">
           <div className="sambutan-ikon" aria-hidden>🦠 📄 🏀 💬 💰</div>
@@ -61,6 +64,7 @@ export default function Masuk() {
           </section>
         )}
       </div>
+      <PanelKanan />
     </main>
   )
 }

@@ -4,6 +4,17 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 26 November 2026 — Objek 3D bergerak di halaman selamat datang & Peta Petualangan
+- **Yang dikerjakan**:
+  - Komponen baru `Bangun3D.jsx`: bangun ruang 3D sungguhan dengan CSS 3D (tanpa pustaka): kubus, balok, prisma segitiga, prisma segi enam, tabung, kerucut, limas, limas segitiga, bola, serta bangun datar tebal yang berputar seperti koin (persegi, segitiga, segi enam, lingkaran).
+  - **Halaman selamat datang**: di layar lebar ada panel kiri (Bangun Ruang: kubus & limas, tabung/kerucut/bola, prisma & balok, bola memantul 160 → 80 → 40 → 20 → 10) dan panel kanan (Bangun Datar & Pola: segitiga Sierpinski 1, 3, 9, 27, batang ×2: 1, 2, 4, 8, 16, bangun datar berputar, orbit). Di HP: baris objek ringkas di atas formulir.
+  - **Peta Petualangan**: setiap kartu modul punya objek 3D berputar (M0 persegi, M1 prisma segitiga, M2 prisma segi enam, M3 bola, M4 kubus, M5 tabung, M6 limas).
+  - Semua gerakan otomatis berhenti jika HP/laptop diatur "kurangi gerakan" (aksesibilitas). Objek bergerak hanya ada di halaman masuk & lobi, tidak di layar belajar.
+- **File yang berubah**: `components/Bangun3D.jsx`, `components/ObjekBergerak.jsx` (baru), `components/GridModul.jsx`, `pages/Masuk.jsx`, `styles.css`, `coba/DeretKita.html`.
+- **Cara mengecek**: buka web di laptop (panel kiri & kanan) dan di HP (baris objek di atas formulir). Masuk, lalu lihat Peta Petualangan.
+
+---
+
 ## 26 November 2026 — Huruf bisa diganti & menu diperbanyak
 - **Yang dikerjakan**:
   - **Pilihan huruf**: 7 jenis (default **Lexend**, yang dirancang agar mudah dibaca) + 4 ukuran (Kecil–Sangat besar), dengan pratinjau. Font disimpan di dalam aplikasi (`@fontsource`), jadi tetap jalan offline. Pengaturan lama "huruf besar" otomatis dipindah.
