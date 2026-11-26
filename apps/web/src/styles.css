@@ -722,7 +722,28 @@ input:focus, textarea:focus { border-color: var(--aksen, var(--aksen-def)); }
   .halaman-masuk { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 480px) minmax(0, 1fr); gap: 1.5rem; padding: 0 1.5rem; align-items: start; }
   .masuk-isi { width: 100%; }
 }
-.panel-samping { display: none; }
+/* HP & tablet kecil: panel muncul di bawah formulir sebagai baris yang bisa digeser */
+@media (max-width: 999px) {
+  .halaman-masuk { display: flex; flex-direction: column; }
+  .masuk-isi { order: 0; width: 100%; padding-bottom: .5rem; }
+  .panel-kiri { order: 1; }
+  .panel-kanan { order: 2; }
+  .panel-samping { position: relative; z-index: 1; width: 100%; max-width: 480px; margin: 0 auto; padding: 0 0 1.2rem; }
+  .panel-judul { display: flex; justify-content: space-between; align-items: center; padding: 0 1rem .5rem; text-align: left; }
+  .geser-tanda { font-size: .78rem; font-weight: 700; color: #db2777; animation: geser-kedip 1.6s ease-in-out infinite; }
+  .panel-geser {
+    display: flex; gap: .8rem; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    padding: .3rem 1rem 1rem; scroll-padding: 0 1rem; scrollbar-width: none;
+  }
+  .panel-geser::-webkit-scrollbar { display: none; }
+  .panel-geser .kartu-objek { flex: 0 0 82%; scroll-snap-align: center; justify-content: center; min-height: 230px; animation: none; }
+  .panel-geser .kartu-objek:last-child { margin-right: 1rem; }
+}
+@keyframes geser-kedip { 0%, 100% { transform: translateX(0); opacity: 1; } 50% { transform: translateX(5px); opacity: .6; } }
+@media (min-width: 1000px) {
+  .panel-geser { display: flex; flex-direction: column; gap: .9rem; }
+  .geser-tanda { display: none; }
+}
 @media (min-width: 1000px) {
   .panel-samping { position: relative; z-index: 1; display: flex; flex-direction: column; gap: .9rem; padding: 1.5rem 0; max-width: 340px; width: 100%; }
   .panel-kiri { justify-self: end; }

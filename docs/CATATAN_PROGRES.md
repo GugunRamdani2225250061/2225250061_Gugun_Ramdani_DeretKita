@@ -4,6 +4,14 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 26 November 2026 — Objek bergerak juga tampil di smartphone
+- **Yang dikerjakan**: panel "Bangun Ruang" dan "Bangun Datar & Pola" (8 kartu objek bergerak) kini juga tampil di HP & tablet, di bawah formulir masuk, sebagai baris yang **bisa digeser** (swipe) dengan tanda "geser →". Di laptop tetap menjadi kolom kiri & kanan.
+- **File yang berubah**: `components/ObjekBergerak.jsx`, `styles.css`, `coba/DeretKita.html`.
+- **Hasil uji**: dicek di lebar 360px, 412px (HP), 768px (tablet), 1440px (laptop). Panel tampil di semua ukuran, bisa digeser di HP/tablet, halaman tidak bergeser ke samping, tanpa error. Uji lengkap 45/45 lulus.
+- **Catatan Kak Deret**: API key DeepSeek di `.env` valid, tetapi **saldo 0**, sehingga belum bisa menjawab. Menunggu keputusan: top up DeepSeek, atau pindah ke penyedia gratis (OpenRouter/Groq/Gemini/Ollama).
+
+---
+
 ## 26 November 2026 — Objek 3D bergerak di halaman selamat datang & Peta Petualangan
 - **Yang dikerjakan**:
   - Komponen baru `Bangun3D.jsx`: bangun ruang 3D sungguhan dengan CSS 3D (tanpa pustaka): kubus, balok, prisma segitiga, prisma segi enam, tabung, kerucut, limas, limas segitiga, bola, serta bangun datar tebal yang berputar seperti koin (persegi, segitiga, segi enam, lingkaran).

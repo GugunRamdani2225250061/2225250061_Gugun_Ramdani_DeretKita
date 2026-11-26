@@ -83,7 +83,8 @@ export function OrbitBangun() {
 export function PanelKiri() {
   return (
     <aside className="panel-samping panel-kiri" aria-hidden>
-      <p className="panel-judul">🧊 Bangun Ruang</p>
+      <p className="panel-judul">🧊 Bangun Ruang <span className="geser-tanda">geser →</span></p>
+      <div className="panel-geser">
       <div className="kartu-objek">
         <div className="objek-baris"><Kubus3D /><Limas3D /></div>
         <small>Kubus & limas segiempat berputar</small>
@@ -108,6 +109,7 @@ export function PanelKiri() {
         <BolaMemantul />
         <small>Bola memantul: tinggi <b>× ½</b> setiap pantulan</small>
       </div>
+      </div>
     </aside>
   )
 }
@@ -115,7 +117,8 @@ export function PanelKiri() {
 export function PanelKanan() {
   return (
     <aside className="panel-samping panel-kanan" aria-hidden>
-      <p className="panel-judul">🔷 Bangun Datar & Pola</p>
+      <p className="panel-judul">🔷 Bangun Datar & Pola <span className="geser-tanda">geser →</span></p>
+      <div className="panel-geser">
       <div className="kartu-objek">
         <Sierpinski />
         <small>Segitiga Sierpinski: 1, 3, 9, 27 → <b>× 3</b></small>
@@ -135,6 +138,7 @@ export function PanelKanan() {
       <div className="kartu-objek">
         <OrbitBangun />
         <small>Segi enam, lingkaran, segitiga, persegi</small>
+      </div>
       </div>
     </aside>
   )
