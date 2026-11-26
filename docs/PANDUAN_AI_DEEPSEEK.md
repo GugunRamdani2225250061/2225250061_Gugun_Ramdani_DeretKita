@@ -1,11 +1,28 @@
 # Panduan Kak Deret (AI): versi GRATIS
 
-## ⭐ Cara termudah: DeepSeek gratis lewat Puter (tanpa API key, tanpa server)
-Kak Deret memakai **jalur gabungan**:
-1. Jika **server Kak Deret** tersedia (laptop guru atau Render), dipakai server.
-2. Jika **tidak ada server** (misalnya membuka web online di HP), Kak Deret **otomatis memakai DeepSeek gratis lewat Puter.js**.
+## ⭐ Cara termudah: AI GRATIS tanpa login & tanpa API key (default)
+Kak Deret memakai urutan: **server** (jika ada) → **AI gratis tanpa login** → DeepSeek lewat Puter (hanya jika dinyalakan).
 
-**Cara siswa memakai (versi web di HP, dari mana saja):**
+**Cara siswa memakai:** buka https://gugunramdani2225250061.github.io/2225250061_Gugun_Ramdani_DeretKita/ di HP → **🤖 Tanya Kak Deret** → langsung bertanya. **Tidak ada login, tidak ada API key, gratis.**
+
+| Hal | Keterangan |
+|---|---|
+| Layanan | **Pollinations.ai** tingkat anonim (gratis) |
+| Model | `openai-fast` = **GPT-OSS 20B** (bukan DeepSeek; DeepSeek gratis tanpa login tidak tersedia saat ini) |
+| Batas | **1 jawaban per 45 detik per alamat IP**. Aplikasi menampilkan hitung mundur otomatis |
+| Lama menjawab | ±5–30 detik |
+| Hanya berfungsi | dari **versi web online (https)**. Tidak dari `localhost`, IP Wi-Fi laptop, atau APK (ditolak anti-bot) |
+
+**⚠️ Penting untuk kelas:** satu Wi-Fi sekolah = satu IP, sehingga **seluruh kelas berbagi 1 jawaban per 45 detik**. Untuk uji coba **satu kelas sekaligus**, pakai **server Kak Deret di laptop** (`mulai-semua.bat` + key OpenRouter gratis, lihat di bawah). Untuk siswa yang memakai **kuota data HP masing-masing**, setiap siswa punya batasnya sendiri.
+
+**Privasi:** pertanyaan siswa dikirim ke layanan pihak ketiga (Pollinations) tanpa akun; ingatkan siswa **tidak menulis data pribadi**, dan sebaiknya ada izin sekolah. Bisa dimatikan di **Pengaturan → "AI gratis tanpa login"**.
+
+---
+
+## Opsional: DeepSeek lewat Puter (perlu login akun Puter)
+Nyalakan di **Pengaturan → "DeepSeek lewat Puter (perlu login)"** dan matikan "AI gratis tanpa login". Siswa lalu masuk akun Puter sekali.
+
+**Cara siswa memakai (jika Puter dinyalakan):**
 1. Buka https://gugunramdani2225250061.github.io/2225250061_Gugun_Ramdani_DeretKita/ di HP.
 2. Tekan **🤖 Tanya Kak Deret** → **🔐 Masuk akun Puter (gratis)**. Daftar/masuk **sekali saja** (pakai nama pengguna samaran, bukan nama lengkap).
 3. Kak Deret langsung menjawab memakai model **DeepSeek** (`deepseek/deepseek-v4.1-flash`, dengan cadangan model DeepSeek lain).

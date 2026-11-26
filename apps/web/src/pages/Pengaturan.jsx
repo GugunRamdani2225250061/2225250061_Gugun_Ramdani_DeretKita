@@ -82,8 +82,10 @@ export default function Pengaturan() {
 
       <ServerAI nilai={pengaturan.apiUrl} />
       <section className="kartu">
-        <Saklar label="DeepSeek gratis lewat Puter" ket="Jika server Kak Deret tidak tersedia, Kak Deret memakai DeepSeek gratis lewat Puter.js (siswa masuk akun Puter sekali; kuota gratis bulanan per akun)."
-          nilai={pengaturan.puterAktif !== false} onUbah={(v) => setPengaturan({ puterAktif: v })} />
+        <Saklar label="AI gratis tanpa login" ket="Jika server Kak Deret tidak tersedia, Kak Deret memakai AI gratis tanpa login & tanpa API key (Pollinations). Batas: 1 jawaban per 45 detik per jaringan."
+          nilai={pengaturan.gratisAktif !== false} onUbah={(v) => setPengaturan({ gratisAktif: v })} />
+        <Saklar label="DeepSeek lewat Puter (perlu login)" ket="Pilihan tambahan: DeepSeek gratis lewat Puter.js. Siswa harus masuk akun Puter. Dipakai hanya jika “AI gratis tanpa login” dimatikan."
+          nilai={pengaturan.puterAktif === true} onUbah={(v) => setPengaturan({ puterAktif: v })} />
         <button className="btn teks-saja" onClick={async () => { await keluarPuter(); alert('Sudah keluar dari akun Puter di perangkat ini.') }}>Keluar dari akun Puter</button>
       </section>
 

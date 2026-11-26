@@ -4,6 +4,18 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — Kak Deret gratis TANPA login (Pollinations)
+- **Permintaan Gugun**: gratis saja, tanpa login Puter.
+- **Yang dikerjakan**:
+  - `src/lib/gratis.js`: Kak Deret memakai **Pollinations.ai** tingkat anonim, yaitu **gratis, tanpa login, tanpa API key**, dipanggil langsung dari browser dengan prompt mediator RMT yang sama. Hitung mundur otomatis saat batas tercapai, membersihkan format LaTeX & blok "berpikir".
+  - Urutan jalur di `KakDeret.jsx`: **server → AI gratis tanpa login (default) → Puter (hanya jika dinyalakan manual)**. Puter kini **mati secara bawaan**. Di APK: arahan untuk mengatur server / memakai versi web.
+  - Pengaturan: saklar "AI gratis tanpa login" & "DeepSeek lewat Puter (perlu login)".
+- **Fakta yang diuji langsung**: Pollinations gratis hanya punya model `openai-fast` (**GPT-OSS 20B, bukan DeepSeek**); DeepSeek gratis tanpa login **tidak tersedia**. Batas **1 jawaban/45 detik per IP**. Jawaban ±5–30 detik. Panggilan dari situs **https** (github.io) **berhasil**; dari `http://localhost` ditolak anti-bot (Turnstile).
+- **Hasil uji**: `npm test` 10/10; uji AI gratis 8/8 (tanpa login, prompt RMT, hitung mundur, 402, Puter hanya manual); simulasi APK, uji HP Wi-Fi lulus; uji lengkap 45/45 (satu kali sempat gagal karena waktu tunggu skrip di pemeriksaan tampilan huruf, dan lulus saat diulang).
+- **Yang belum / masalah**: satu Wi-Fi kelas = satu IP, jadi seluruh kelas berbagi 1 jawaban/45 detik. Untuk kelas penuh, pakai server di laptop. Kualitas model 20B di bawah DeepSeek (sesekali kalimat aneh). Data pertanyaan lewat pihak ketiga, jadi perlu izin sekolah.
+
+---
+
 ## 27 November 2026 — Kak Deret: DeepSeek gratis di HP lewat Puter.js (jalur gabungan)
 - **Yang dikerjakan**:
   - Pilihan Gugun: **gabungan**. Kak Deret memakai **server** (API key di server) bila tersedia; jika tidak, **otomatis memakai DeepSeek gratis lewat Puter.js** (tanpa API key; siswa masuk akun Puter sekali; kuota gratis bulanan per akun, model *user-pays*).
