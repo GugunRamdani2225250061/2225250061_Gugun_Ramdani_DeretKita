@@ -8,6 +8,17 @@ import GridModul from '../components/GridModul.jsx'
 import Rumus from '../components/Rumus.jsx'
 import Bentuk from '../components/Bentuk.jsx'
 
+const PINTAS = [
+  { ke: '/tanya', ikon: '🤖', nama: 'Tanya Kak Deret', ket: 'Tutor AI yang membimbingmu berpikir', warna: '#4f46e5', bentuk: 'bola' },
+  { ke: '/latihan', ikon: '⚡', nama: 'Latihan Kilat', ket: '10 soal acak, langsung dinilai', warna: '#ea580c', bentuk: 'segitiga' },
+  { ke: '/rumus', ikon: '📐', nama: 'Kartu Rumus', ket: 'Semua rumus dalam satu halaman', warna: '#0891b2', bentuk: 'kubus' },
+  { ke: '/kamus', ikon: '📖', nama: 'Kamus Istilah', ket: 'Suku, rasio, deret, dan lainnya', warna: '#2563eb', bentuk: 'persegi' },
+  { ke: '/kalkulator', ikon: '🧮', nama: 'Kalkulator Pola', ket: 'Ubah a, r, n dan lihat polanya', warna: '#0d9488', bentuk: 'tabung' },
+  { ke: '/rmt', ikon: '🧠', nama: 'Model RMT', ket: '3 tahap cara belajar di sini', warna: '#059669', bentuk: 'segienam' },
+  { ke: '/lencana', ikon: '🏅', nama: 'Lencana', ket: 'Kumpulkan semua penghargaan', warna: '#d97706', bentuk: 'limas' },
+  { ke: '/bantuan', ikon: '❓', nama: 'Bantuan', ket: 'Cara memakai aplikasi', warna: '#db2777', bentuk: 'kerucut' },
+]
+
 function CincinProgres({ selesai, total }) {
   const r = 52, kel = 2 * Math.PI * r, persen = selesai / total
   return (
@@ -80,18 +91,15 @@ export default function Beranda() {
 
       <div className="judul-lobi">
         <Bentuk jenis="bola" warna="#ec4899" ukuran={28} />
-        <h2>Teman Belajar</h2>
+        <h2>Jelajahi</h2>
       </div>
       <div className="grid-pintas">
-        <Link to="/tanya" className="pintas" style={{ '--aksen': '#4f46e5' }}>
-          <span className="pintas-ikon">🤖</span><strong>Tanya Kak Deret</strong><small>Tutor AI yang membimbingmu berpikir</small>
-        </Link>
-        <Link to="/kalkulator" className="pintas" style={{ '--aksen': '#0891b2' }}>
-          <span className="pintas-ikon">🧮</span><strong>Kalkulator Pola</strong><small>Ubah a, r, n dan lihat polanya</small>
-        </Link>
-        <Link to="/rmt" className="pintas" style={{ '--aksen': '#059669' }}>
-          <span className="pintas-ikon">🧠</span><strong>Model RMT</strong><small>3 tahap cara belajar di sini</small>
-        </Link>
+        {PINTAS.map((x) => (
+          <Link key={x.ke} to={x.ke} className="pintas" style={{ '--aksen': x.warna }}>
+            <span className="pintas-ikon">{x.ikon}</span><strong>{x.nama}</strong><small>{x.ket}</small>
+            <span className="pintas-bentuk" aria-hidden><Bentuk jenis={x.bentuk} warna={x.warna} ukuran={40} /></span>
+          </Link>
+        ))}
       </div>
     </main>
   )

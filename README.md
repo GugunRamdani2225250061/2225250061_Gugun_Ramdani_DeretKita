@@ -48,6 +48,8 @@ API key **tidak pernah** ditaruh di kode/GitHub. Panduan lengkap (termasuk agar 
 - **Lobi** penuh warna dengan bangun datar, bangun ruang, dan rumus melayang; **menu vertikal di kiri** (di HP menjadi kolom ikon dan disembunyikan saat belajar agar fokus)
 - **Model pembelajaran RMT** (*Rigorous Mathematical Thinking*): setiap layar modul menunjukkan tahapnya. Amati & kenali → Bangun konsep → Terapkan & hubungkan ([docs/RMT.md](docs/RMT.md))
 - **Kak Deret**: tutor AI (DeepSeek) sebagai mediator RMT, membimbing dengan pertanyaan, tidak memberi jawaban langsung
+- **Huruf bisa diganti** (Pengaturan atau tombol "Aa" di menu): 7 jenis huruf (Lexend, Nunito, Poppins, Atkinson Hyperlegible, Fredoka, Comic Neue, bawaan HP) dan 4 ukuran. Huruf tersimpan di aplikasi, jadi tetap jalan offline.
+- **Menu kiri lengkap** (13 menu dalam 4 kelompok): Lobi, Modul, ⚡ Latihan Kilat (soal acak), 📐 Kartu Rumus, 📖 Kamus Istilah, Kak Deret, Kalkulator, Model RMT, 🏅 Lencana, Angket, Pengaturan, ❓ Bantuan, Dasbor Guru. Ditambah progres mini, "rumus kilat", dan hiasan bangun ruang
 - 7 modul: pre-training istilah → pola dikali → suku ke-n → pola mengecil → deret → geometri vs aritmetika → tantangan literasi
 - Materi per layar pendek, visual animasi (bakteri, lipatan kertas, bola memantul, pesan berantai), warna simbol konsisten (**a** biru, **r** oranye, **n** hijau)
 - Contoh soal terurai + *fading* (siswa mengisi langkah yang dikosongkan)

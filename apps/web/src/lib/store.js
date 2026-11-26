@@ -9,13 +9,19 @@ const AWAL = {
   angket: [],
   refleksi: [],
   progres: {}, // progres[kode][modulId] = { pos, selesai, bintang }
-  pengaturan: { hurufBesar: false, modeUjiCoba: true },
+  pengaturan: { font: 'lexend', ukuranHuruf: 'normal', modeUjiCoba: true },
+  latihan: {}, // latihan[kode] = { terbaik, sesi } (Latihan Kilat, BUKAN data penelitian)
 }
 
 function muat() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY))
-    if (s) return { ...AWAL, ...s, pengaturan: { ...AWAL.pengaturan, ...s.pengaturan } }
+    if (s) {
+      const peng = { ...AWAL.pengaturan, ...s.pengaturan }
+      if (s.pengaturan?.hurufBesar && !s.pengaturan?.ukuranHuruf) peng.ukuranHuruf = 'besar' // data versi lama
+      delete peng.hurufBesar
+      return { ...AWAL, ...s, pengaturan: peng }
+    }
   } catch { /* abaikan */ }
   return structuredClone(AWAL)
 }
@@ -76,6 +82,14 @@ export function setProgres(modulId, data) {
   }))
 }
 
-export const setPengaturan = (data) => setState((s) => ({ pengaturan: { ...s.pengaturan, ...data } }))
+export function simpanLatihan(skor) {
+  const kode = state.profil.kode
+  setState((s) => {
+    const lama = s.latihan?.[kode] || { terbaik: 0, sesi: 0 }
+    return { latihan: { ...s.latihan, [kode]: { terbaik: Math.max(lama.terbaik, skor), sesi: lama.sesi + 1 } } }
+  })
+}
+
+export const setPengaturan =(data) => setState((s) => ({ pengaturan: { ...s.pengaturan, ...data } }))
 
 export const hapusSemuaData = () => setState(() => ({ ...structuredClone(AWAL), pengaturan: state.pengaturan }))

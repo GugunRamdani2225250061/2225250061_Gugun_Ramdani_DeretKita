@@ -4,6 +4,19 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 26 November 2026 — Huruf bisa diganti & menu diperbanyak
+- **Yang dikerjakan**:
+  - **Pilihan huruf**: 7 jenis (default **Lexend**, yang dirancang agar mudah dibaca) + 4 ukuran (Kecil–Sangat besar), dengan pratinjau. Font disimpan di dalam aplikasi (`@fontsource`), jadi tetap jalan offline. Pengaturan lama "huruf besar" otomatis dipindah.
+  - **Menu kiri**: 13 menu dalam 4 kelompok (Belajar, Teman Belajar, Saya, Guru), kartu progres mini, "Rumus kilat", tombol cepat "Aa" ke pengaturan huruf, dan hiasan bangun ruang.
+  - **Halaman baru**: ⚡ Latihan Kilat (10 soal acak dari rumus, skor & beruntun, *bukan* data penelitian), 📐 Kartu Rumus, 📖 Kamus Istilah (bisa dicari), 🏅 Lencana (11 penghargaan), ❓ Bantuan.
+  - Lobi: bagian "Jelajahi" berisi 8 pintasan bergambar bangun datar/ruang.
+- **File yang berubah**: `apps/web/src/lib/fonts.js`, `lib/latihan.js` (+ tes), `content/kamus.js`, `components/Sidebar.jsx`, `pages/` (Pengaturan, LatihanKilat, KartuRumus, Kamus, Lencana, Bantuan, Beranda), `App.jsx`, `lib/store.js`, `styles.css`, `package.json`, `vite.config.js`, `coba/DeretKita.html`.
+- **Hasil uji**: `npm test` 8/8 (termasuk 3.000 soal Latihan Kilat acak: semua kunci bilangan bulat & valid). Uji browser 45/45 lulus, termasuk ganti huruf tersimpan, dan semua halaman pas di HP 360px meski huruf "Sangat besar". Bug yang ditemukan & diperbaiki: tombol ukuran huruf keluar layar saat huruf sangat besar.
+- **Cara mengecek**: menu kiri → Pengaturan (atau tombol "Aa") → pilih huruf & ukuran. Coba Latihan Kilat, Kamus, Kartu Rumus, Lencana.
+- **Catatan**: file `coba/DeretKita.html` sekarang ±1 MB karena huruf ikut disimpan di dalamnya.
+
+---
+
 ## 26 November 2026 — Kak Deret (AI DeepSeek), model RMT, lobi baru & menu kiri
 - **Yang dikerjakan**:
   - **Kak Deret**: tutor AI DeepSeek (`deepseek-flash`) sebagai mediator RMT. Ada di setiap soal, contoh soal, refleksi, dan halaman Tanya. Tidak memberi jawaban akhir, maksimal ±60 kata. API key **hanya** di `.env`/server, pemakaian dibatasi (per 10 menit & per hari). Pemakaian AI dicatat (`ai_dipakai`) di Dasbor & CSV.

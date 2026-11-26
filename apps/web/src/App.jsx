@@ -14,14 +14,18 @@ import Dasbor from './pages/Dasbor.jsx'
 import Pengaturan from './pages/Pengaturan.jsx'
 import Tanya from './pages/Tanya.jsx'
 import Rmt from './pages/Rmt.jsx'
+import LatihanKilat from './pages/LatihanKilat.jsx'
+import KartuRumus from './pages/KartuRumus.jsx'
+import Kamus from './pages/Kamus.jsx'
+import Lencana from './pages/Lencana.jsx'
+import Bantuan from './pages/Bantuan.jsx'
+import { terapkanHuruf } from './lib/fonts.js'
 
 export default function App() {
   const { profil, pengaturan } = useStore()
   const lokasi = useLocation()
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('huruf-besar', pengaturan.hurufBesar)
-  }, [pengaturan.hurufBesar])
+  useEffect(() => { terapkanHuruf(pengaturan.font, pengaturan.ukuranHuruf) }, [pengaturan.font, pengaturan.ukuranHuruf])
 
   useEffect(() => {
     if (!profil) return
@@ -49,6 +53,11 @@ export default function App() {
       <Route path="/tanya" element={wajibMasuk(<Tanya />)} />
       <Route path="/rmt" element={<Rmt />} />
       <Route path="/pengaturan" element={wajibMasuk(<Pengaturan />)} />
+      <Route path="/latihan" element={wajibMasuk(<LatihanKilat />)} />
+      <Route path="/rumus" element={<KartuRumus />} />
+      <Route path="/kamus" element={<Kamus />} />
+      <Route path="/lencana" element={wajibMasuk(<Lencana />)} />
+      <Route path="/bantuan" element={<Bantuan />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
