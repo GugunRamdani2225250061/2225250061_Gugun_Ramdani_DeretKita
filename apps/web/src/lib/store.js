@@ -9,7 +9,7 @@ const AWAL = {
   angket: [],
   refleksi: [],
   progres: {}, // progres[kode][modulId] = { pos, selesai, bintang }
-  pengaturan: { font: 'lexend', ukuranHuruf: 'normal', modeUjiCoba: true },
+  pengaturan: { font: 'lexend', ukuranHuruf: 'normal', modeUjiCoba: true, apiUrl: '' },
   latihan: {}, // latihan[kode] = { terbaik, sesi } (Latihan Kilat, BUKAN data penelitian)
 }
 

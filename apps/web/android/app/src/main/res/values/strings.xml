@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DeretKita</string>
+    <string name="title_activity_main">DeretKita</string>
+    <string name="package_name">id.deretkita.app</string>
+    <string name="custom_url_scheme">id.deretkita.app</string>
+</resources>

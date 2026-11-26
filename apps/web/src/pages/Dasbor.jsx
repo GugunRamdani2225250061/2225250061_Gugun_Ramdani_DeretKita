@@ -4,7 +4,7 @@ import { useStore, hapusSemuaData } from '../lib/store.js'
 import { ringkasPerSoal, keCSV, unduh, rata } from '../lib/statistik.js'
 import { SOAL } from '../content/soal.js'
 
-import { alamatAPI as API } from '../lib/ai.js'
+import { alamatAPI } from '../lib/ai.js'
 const f = (v, d = 2) => (v === null || v === undefined ? '-' : (+v).toFixed(d).replace('.', ','))
 
 export default function Dasbor() {
@@ -20,7 +20,7 @@ export default function Dasbor() {
   const analisisPython = async () => {
     setPesanPy('Menghubungi server Python…')
     try {
-      const res = await fetch(`${API}/analisis`, {
+      const res = await fetch(`${alamatAPI()}/analisis`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ records: jawaban, angket }),
       })
@@ -28,7 +28,7 @@ export default function Dasbor() {
       setPy(await res.json())
       setPesanPy('')
     } catch {
-      setPesanPy(`Server Python belum berjalan di ${API}. Jalankan "mulai-api.bat" lalu coba lagi. Ringkasan di atas tetap bisa dipakai.`)
+      setPesanPy(`Server Python belum berjalan di ${alamatAPI() || '(alamat belum diatur)'}. Jalankan "mulai-api.bat" lalu coba lagi. Ringkasan di atas tetap bisa dipakai.`)
     }
   }
 

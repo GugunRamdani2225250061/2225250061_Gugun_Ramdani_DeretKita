@@ -4,6 +4,20 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — Aplikasi Android (APK) dibuat otomatis
+- **Yang dikerjakan**:
+  - Proyek Android (Capacitor 7) di `apps/web/android/`; konfigurasi `apps/web/capacitor.config.json` (appId `id.deretkita.app`, nama DeretKita). Build web khusus APK: `vite build --mode apk` → `dist-apk/` (tanpa service worker).
+  - **GitHub Actions `.github/workflows/apk.yml`**: setiap push ke `main` → tes → build APK → terbit di **Releases** dengan link tetap `…/releases/latest/download/DeretKita.apk`.
+  - Ikon Android DeretKita (biasa, bundar, adaptif) dibuat oleh `scripts/make-icons.mjs`.
+  - **Kunci tanda tangan tetap** (`android/app/deretkita.keystore` + sandi acak di `kunci-apk-sandi.txt`) dan nomor versi naik otomatis, sehingga APK baru bisa dipasang menimpa yang lama dan **data siswa di HP tidak hilang**. Kunci & sandi **RAHASIA, tidak di-upload** (gitignore); GitHub memakainya lewat **Secret** `APK_KEYSTORE_BASE64` & `APK_KEYSTORE_PASSWORD` yang diisi dengan `siapkan-kunci-apk.bat`. Tanpa Secret, APK tetap dibuat dengan kunci sementara.
+  - Pengaturan baru **🤖 Server Kak Deret**: alamat server bisa diisi di aplikasi (wajib di APK). Halaman **Buka di HP** kini punya 3 QR: Wi-Fi, **unduh APK**, versi online, plus alamat server laptop untuk APK.
+- **File yang berubah**: `apps/web/android/` (baru), `capacitor.config.json`, `vite.config.js`, `package.json`, `scripts/make-icons.mjs`, `src/lib/ai.js`, `store.js`, `pages/Pengaturan.jsx`, `BukaDiHP.jsx`, `Dasbor.jsx`, `components/KakDeret.jsx`, `.github/workflows/apk.yml`, `render.yaml`, README, panduan AI.
+- **Hasil uji (lokal)**: `npm test` 8/8, uji lengkap 45/45, uji HP Wi-Fi lulus, simulasi APK (Capacitor) lulus: tanpa alamat → pesan atur; isi alamat → Kak Deret menjawab; alamat tersimpan.
+- **Cara mengecek (untuk Gugun)**: tunggu GitHub selesai membuat APK (tab Actions → "Buat APK Android" hijau) → di HP Android buka link unduh APK → pasang → coba.
+- **Yang belum / masalah**: APK hanya untuk **Android** (iPhone pakai versi web). Kak Deret di APK butuh server: laptop guru (Wi-Fi) atau Render (online). **Jalankan `siapkan-kunci-apk.bat` sekali** agar semua APK memakai kunci yang sama. Simpan cadangan file kunci (`apps/web/android/app/deretkita.keystore` & `kunci-apk-sandi.txt`): jika hilang, APK baru tidak bisa menimpa versi lama.
+
+---
+
 ## 27 November 2026 — Aplikasi & Kak Deret bisa dipakai di smartphone (Wi-Fi)
 - **Yang dikerjakan**:
   - Alamat server Python kini **ditentukan otomatis** (`lib/ai.js`). Jika aplikasi dibuka dari server aplikasi di laptop (termasuk dari HP lewat Wi-Fi), pertanyaan AI dikirim ke `/api` lalu **diteruskan** ke server Python di laptop (`vite.config.js`, proxy). HP tidak perlu pengaturan apa pun.

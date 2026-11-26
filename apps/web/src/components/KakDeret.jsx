@@ -46,9 +46,11 @@ export default function KakDeret({ mode = 'mediasi', konteks, aksiCepat = [], on
       {status && !status.aktif && (
         <div className="umpan lihat">
           Kak Deret belum aktif.{' '}
-          {status.alasan === 'server'
-            ? 'Server Python belum berjalan atau belum online (jalankan mulai-api.bat).'
-            : 'API key AI belum diisi di file .env server (AI_API_KEY, gratis dari openrouter.ai/keys).'}
+          {status.alasan === 'atur'
+            ? 'Alamat server Kak Deret belum diatur. Buka menu Pengaturan → Server Kak Deret.'
+            : status.alasan === 'server'
+              ? 'Server Kak Deret tidak bisa dihubungi. Di kelas: pastikan mulai-api.bat berjalan di laptop & HP satu Wi-Fi (alamat diatur di Pengaturan).'
+              : 'API key AI belum diisi di file .env server (AI_API_KEY, gratis dari openrouter.ai/keys).'}
           <br /><small>Panduan: docs/PANDUAN_AI_DEEPSEEK.md</small>
         </div>
       )}

@@ -19,6 +19,7 @@ const API_LOKAL = { '/api': { target: 'http://127.0.0.1:8000', changeOrigin: tru
 // mode "offline" = satu file HTML yang bisa dibuka dengan klik dua kali (tanpa server).
 export default defineConfig(({ mode, command }) => {
   const offline = mode === 'offline'
+  const apk = mode === 'apk' // aplikasi Android (Capacitor): tanpa service worker, keluaran ke dist-apk
   const ip = command === 'serve' ? ipWifi() : ''
   return {
     base: './',
@@ -30,7 +31,7 @@ export default defineConfig(({ mode, command }) => {
       react(),
       offline
         ? viteSingleFile()
-        : VitePWA({
+        : apk ? null : VitePWA({
             registerType: 'autoUpdate',
             includeAssets: ['icons/icon.svg', 'icons/apple-touch-icon.png'],
             manifest: {
@@ -54,10 +55,11 @@ export default defineConfig(({ mode, command }) => {
           }),
     ],
     resolve: {
-      alias: offline
+      alias: offline || apk
         ? { 'virtual:pwa-register': fileURLToPath(new URL('./src/lib/pwa-stub.js', import.meta.url)) }
         : {},
     },
-    build: offline ? { outDir: '../../coba', emptyOutDir: false, copyPublicDir: false } : {},
+    build: offline ? { outDir: '../../coba', emptyOutDir: false, copyPublicDir: false }
+      : apk ? { outDir: 'dist-apk', emptyOutDir: true } : {},
   }
 })

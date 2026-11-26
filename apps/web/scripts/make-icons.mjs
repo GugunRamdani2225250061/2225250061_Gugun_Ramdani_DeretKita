@@ -1,7 +1,7 @@
 // Membuat ikon PNG aplikasi tanpa pustaka tambahan.
 // Gambar: 4 batang yang tumbuh berlipat (1, 2, 4, 8), simbol barisan geometri.
 import { deflateSync } from 'node:zlib'
-import { writeFileSync, mkdirSync } from 'node:fs'
+import { writeFileSync, mkdirSync, existsSync } from 'node:fs'
 
 const TABLE = Array.from({ length: 256 }, (_, n) => {
   let c = n
@@ -35,13 +35,17 @@ function png(w, h, pix) {
 
 const BG = [31, 95, 191, 255], PUTIH = [255, 255, 255, 255], ORANYE = [255, 169, 77, 255], KOSONG = [0, 0, 0, 0]
 
-function ikon(size, maskable) {
-  const rad = maskable ? 0 : size * 0.22
-  const pad = size * (maskable ? 0.24 : 0.17)
+// mode: 'kotak' (sudut membulat), 'penuh' (maskable), 'bulat' (ikon bundar Android), 'fg' (latar transparan, ikon adaptif Android)
+function ikon(size, mode) {
+  if (mode === true) mode = 'penuh'
+  if (mode === false) mode = 'kotak'
+  const rad = mode === 'kotak' ? size * 0.22 : 0
+  const pad = size * ({ kotak: 0.17, penuh: 0.24, bulat: 0.27, fg: 0.33 }[mode])
   const lebarArea = size - 2 * pad, tinggiArea = size - 2 * pad
   const kolom = lebarArea / 4, lebarBatang = kolom * 0.72
   const tinggi = [1, 2, 4, 8].map((v) => (v / 8) * tinggiArea)
   return png(size, size, (x, y) => {
+    if (mode === 'bulat' && (x + 0.5 - size / 2) ** 2 + (y + 0.5 - size / 2) ** 2 > (size / 2) ** 2) return KOSONG
     // sudut membulat
     const cx = Math.min(Math.max(x, rad), size - 1 - rad), cy = Math.min(Math.max(y, rad), size - 1 - rad)
     if (rad && (x - cx) ** 2 + (y - cy) ** 2 > rad ** 2) return KOSONG
@@ -49,14 +53,30 @@ function ikon(size, maskable) {
       const x0 = pad + i * kolom + (kolom - lebarBatang) / 2
       if (x >= x0 && x < x0 + lebarBatang && y >= size - pad - tinggi[i] && y < size - pad) return i === 3 ? ORANYE : PUTIH
     }
-    return BG
+    return mode === 'fg' ? KOSONG : BG
   })
 }
 
 const dir = new URL('../public/icons/', import.meta.url)
 mkdirSync(dir, { recursive: true })
-writeFileSync(new URL('icon-192.png', dir), ikon(192, false))
-writeFileSync(new URL('icon-512.png', dir), ikon(512, false))
-writeFileSync(new URL('icon-maskable-512.png', dir), ikon(512, true))
-writeFileSync(new URL('apple-touch-icon.png', dir), ikon(180, true))
-console.log('Ikon dibuat di public/icons/')
+writeFileSync(new URL('icon-192.png', dir), ikon(192, 'kotak'))
+writeFileSync(new URL('icon-512.png', dir), ikon(512, 'kotak'))
+writeFileSync(new URL('icon-maskable-512.png', dir), ikon(512, 'penuh'))
+writeFileSync(new URL('apple-touch-icon.png', dir), ikon(180, 'penuh'))
+console.log('Ikon web dibuat di public/icons/')
+
+// Ikon aplikasi Android (APK), jika folder android/ sudah ada
+const res = new URL('../android/app/src/main/res/', import.meta.url)
+if (existsSync(res)) {
+  const KEPADATAN = { mdpi: 1, hdpi: 1.5, xhdpi: 2, xxhdpi: 3, xxxhdpi: 4 }
+  for (const [nama, k] of Object.entries(KEPADATAN)) {
+    const d = new URL(`mipmap-${nama}/`, res)
+    mkdirSync(d, { recursive: true })
+    writeFileSync(new URL('ic_launcher.png', d), ikon(Math.round(48 * k), 'kotak'))
+    writeFileSync(new URL('ic_launcher_round.png', d), ikon(Math.round(48 * k), 'bulat'))
+    writeFileSync(new URL('ic_launcher_foreground.png', d), ikon(Math.round(108 * k), 'fg'))
+  }
+  writeFileSync(new URL('values/ic_launcher_background.xml', res),
+    '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="ic_launcher_background">#1F5FBF</color>\n</resources>\n')
+  console.log('Ikon Android dibuat di android/app/src/main/res/')
+}

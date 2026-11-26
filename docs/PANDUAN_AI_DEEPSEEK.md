@@ -39,6 +39,8 @@ Tidak perlu pengaturan tambahan:
 3. Siswa menyambungkan HP ke **Wi-Fi yang sama** (boleh hotspot HP guru), lalu **memindai kode QR** dengan kamera.
 4. Aplikasi terbuka di HP, dan **Kak Deret langsung bisa dipakai**: pertanyaan dari HP diteruskan otomatis ke server Python di laptop.
 
+**Memakai aplikasi APK?** Di APK buka **Pengaturan → Server Kak Deret**, isi alamat yang tertulis di halaman *Buka di HP* di laptop (mis. `http://192.168.1.5:8000`), tekan **Simpan & cek** (harus muncul "✅ Kak Deret aktif").
+
 Jika HP tidak bisa membuka: saat pertama menjalankan, Windows menanyakan izin jaringan untuk *Node.js*/*Python*, jadi pilih **Allow**. Pastikan juga laptop tidak memakai Wi-Fi "Public" yang memblokir perangkat lain.
 
 ---

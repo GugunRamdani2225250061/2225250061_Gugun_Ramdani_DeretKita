@@ -25,3 +25,14 @@ venv/
 !.vscode/extensions.json
 .DS_Store
 Thumbs.db
+
+# Build web khusus APK (dibuat ulang otomatis)
+apps/web/dist-apk/
+apps/web/android/app/build/
+apps/web/android/build/
+apps/web/android/.gradle/
+
+# Kunci tanda tangan APK: RAHASIA, jangan di-upload (simpan di GitHub Secret)
+*.keystore
+*.jks
+kunci-apk-sandi.txt

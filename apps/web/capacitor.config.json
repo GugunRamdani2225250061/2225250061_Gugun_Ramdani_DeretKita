@@ -1,0 +1,13 @@
+{
+  "appId": "id.deretkita.app",
+  "appName": "DeretKita",
+  "webDir": "dist-apk",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#f3f4fb"
+  }
+}

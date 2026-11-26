@@ -5,6 +5,8 @@ import { Halaman } from '../components/Layout.jsx'
 import { cekAI } from '../lib/ai.js'
 
 const ALAMAT_ONLINE = 'https://gugunramdani2225250061.github.io/2225250061_Gugun_Ramdani_DeretKita/'
+// APK terbaru dibuat otomatis oleh GitHub Actions (.github/workflows/apk.yml)
+const ALAMAT_APK = 'https://github.com/GugunRamdani2225250061/2225250061_Gugun_Ramdani_DeretKita/releases/latest/download/DeretKita.apk'
 // diisi otomatis oleh server aplikasi di laptop (vite.config.js); kosong di versi online
 const ALAMAT_WIFI = typeof __ALAMAT_WIFI__ !== 'undefined' ? __ALAMAT_WIFI__ : ''
 
@@ -47,8 +49,16 @@ export default function BukaDiHP() {
               <li>Pindai QR. Semua fitur jalan, termasuk <strong>Kak Deret</strong> {ai?.aktif ? '✅ (aktif)' : '(aktif jika mulai-api.bat berjalan & key terisi)'}.</li>
               <li>Jika tidak terbuka: izinkan Node.js di Windows Firewall ("Allow") saat pertama menjalankan.</li>
             </ol>
+            <p className="kecil">📲 Memakai <b>aplikasi APK</b>? Di APK buka Pengaturan → Server Kak Deret, isi: <code>{ALAMAT_WIFI.replace(':5173/', ':8000')}</code></p>
           </KartuAlamat>
         )}
+        <KartuAlamat judul="📲 Unduh aplikasi Android (APK)" alamat={ALAMAT_APK} warna="#16a34a">
+          <ol className="langkah-hp">
+            <li>Pindai QR di HP Android → file <b>DeretKita.apk</b> terunduh.</li>
+            <li>Buka file itu → izinkan <em>"Instal dari sumber tidak dikenal"</em> → <b>Instal</b>.</li>
+            <li>Tanpa Play Store. Semua fitur jalan offline; Kak Deret butuh alamat server (Pengaturan).</li>
+          </ol>
+        </KartuAlamat>
         <KartuAlamat judul="🌐 Versi online (dari mana saja)" alamat={ALAMAT_ONLINE} warna="#7c3aed">
           <ol className="langkah-hp">
             <li>Buka di <strong>Chrome</strong> (Android) atau <strong>Safari</strong> (iPhone).</li>

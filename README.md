@@ -22,6 +22,13 @@ Klik dua kali **`coba/DeretKita.html`**. Aplikasi terbuka di browser dan semua f
 3. Tunggu ±2 menit (tab **Actions** berwarna hijau). Aplikasi online di `https://USERNAME.github.io/NAMA-REPO/`.
 4. Buka link itu di Chrome HP → tombol **Pasang** di Beranda (atau menu ⋮ → *Install app*). Aplikasi muncul sebagai ikon dan bisa dipakai offline.
 
+### Cara 4: Aplikasi Android (APK), tanpa Play Store 📲
+- Unduh di HP Android: **https://github.com/GugunRamdani2225250061/2225250061_Gugun_Ramdani_DeretKita/releases/latest/download/DeretKita.apk** (atau pindai QR di menu **Buka di HP**).
+- Buka file → izinkan *"Instal dari sumber tidak dikenal"* → **Instal**. Ikon DeretKita muncul di HP dan semua materi jalan **tanpa internet**.
+- **Kak Deret di APK:** buka **Pengaturan → Server Kak Deret**, isi alamat server: di kelas `http://IP-laptop:8000` (lihat menu *Buka di HP* di laptop yang menjalankan `mulai-semua.bat`), atau alamat server Render untuk dipakai dari mana saja.
+- APK dibuat **otomatis oleh GitHub** setiap ada perubahan (`.github/workflows/apk.yml`).
+- **Sekali saja:** klik dua kali **`siapkan-kunci-apk.bat`** untuk menyimpan kunci tanda tangan APK sebagai GitHub Secret. Setelah itu versi baru bisa dipasang **menimpa** yang lama, jadi data di HP tidak hilang. File kunci bersifat rahasia dan tidak ikut ter-upload; simpan cadangannya.
+
 ### Python (analisis statistik)
 1. Pasang **Python 3.12** dari https://www.python.org/downloads/ (centang **Add python.exe to PATH**).
 2. **`cek-python.bat`**: cek semua kunci jawaban + contoh analisis uji coba.

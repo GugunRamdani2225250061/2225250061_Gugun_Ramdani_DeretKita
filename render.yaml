@@ -20,4 +20,4 @@ services:
       - key: AI_BATAS_HARIAN
         value: "1000"
       - key: ALLOWED_ORIGINS
-        value: https://gugunramdani2225250061.github.io,http://localhost:5173
+        value: https://gugunramdani2225250061.github.io,http://localhost:5173,https://localhost,capacitor://localhost
