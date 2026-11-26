@@ -34,7 +34,10 @@ Klik dua kali **`coba/DeretKita.html`**. Aplikasi terbuka di browser dan semua f
 2. **`cek-python.bat`**: cek semua kunci jawaban + contoh analisis uji coba.
 3. **`mulai-api.bat`**: menjalankan API Python. Di aplikasi: **Dasbor Guru → Analisis dengan Python**.
 
-### 🤖 Kak Deret (AI GRATIS lewat OpenRouter)
+### 🤖 Kak Deret: DeepSeek GRATIS di HP (tanpa API key)
+Buka web di HP → **Tanya Kak Deret** → **Masuk akun Puter (gratis)** sekali → Kak Deret menjawab memakai **DeepSeek**. Tidak perlu server atau API key; kuota gratis bulanan ditanggung akun Puter tiap siswa. (Jika server Kak Deret tersedia, server yang dipakai.)
+
+### 🤖 Kak Deret lewat server (opsional, siswa tanpa login; OpenRouter gratis)
 1. Buat key **gratis** (tanpa top up/kartu) di https://openrouter.ai/keys.
 2. Buka file **`.env`** di folder ini → isi `AI_API_KEY=sk-or-...` → simpan.
 3. Jalankan **`mulai-api.bat`** lalu **`mulai-aplikasi.bat`**.

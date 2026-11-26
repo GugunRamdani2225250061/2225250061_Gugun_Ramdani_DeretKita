@@ -10,7 +10,7 @@
     "build:apk": "vite build --mode apk && cap sync android",
     "preview": "vite preview --host",
     "icons": "node scripts/make-icons.mjs",
-    "test": "node --test src/lib/geometri.test.js src/content/konten.test.js src/lib/latihan.test.js"
+    "test": "node --test src/lib/geometri.test.js src/content/konten.test.js src/lib/latihan.test.js src/lib/promptRMT.test.js"
   },
   "dependencies": {
     "@capacitor/android": "^7.6.11",

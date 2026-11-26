@@ -1,5 +1,26 @@
 # Panduan Kak Deret (AI): versi GRATIS
 
+## ⭐ Cara termudah: DeepSeek gratis lewat Puter (tanpa API key, tanpa server)
+Kak Deret memakai **jalur gabungan**:
+1. Jika **server Kak Deret** tersedia (laptop guru atau Render), dipakai server.
+2. Jika **tidak ada server** (misalnya membuka web online di HP), Kak Deret **otomatis memakai DeepSeek gratis lewat Puter.js**.
+
+**Cara siswa memakai (versi web di HP, dari mana saja):**
+1. Buka https://gugunramdani2225250061.github.io/2225250061_Gugun_Ramdani_DeretKita/ di HP.
+2. Tekan **🤖 Tanya Kak Deret** → **🔐 Masuk akun Puter (gratis)**. Daftar/masuk **sekali saja** (pakai nama pengguna samaran, bukan nama lengkap).
+3. Kak Deret langsung menjawab memakai model **DeepSeek** (`deepseek/deepseek-v4.1-flash`, dengan cadangan model DeepSeek lain).
+
+**Yang perlu diketahui:**
+- **Gratis untuk Anda.** Biaya AI ditanggung kuota gratis bulanan **akun Puter masing-masing siswa** (model *user-pays*). Jika kuota satu akun habis, Puter menawarkan peningkatan; aplikasi lain tetap berjalan.
+- **Privasi:** pertanyaan siswa dikirim ke layanan pihak ketiga (Puter → DeepSeek). Untuk penelitian, sebaiknya ada **izin sekolah/orang tua**, dan siswa **tidak menulis data pribadi**.
+- Bisa **dimatikan** di **Pengaturan → "DeepSeek gratis lewat Puter"**, dan bisa keluar akun dengan **"Keluar dari akun Puter"**.
+- Di **APK Android**, masuk akun Puter bisa tidak berjalan (jendela login terblokir di aplikasi). Untuk APK, pakai **server Kak Deret** (lihat di bawah) atau versi web.
+- Model gratis bisa sesekali keliru; periksa beberapa jawaban saat uji coba.
+
+---
+
+# Jalur server (opsional): siswa tanpa login
+
 **Kak Deret** adalah tutor AI di DeretKita. Ia berperan sebagai **mediator** dalam model *Rigorous Mathematical Thinking* (RMT): **tidak memberi jawaban langsung**, tetapi membimbing siswa dengan pertanyaan pemandu yang singkat.
 
 Sekarang Kak Deret memakai **OpenRouter (gratis, tanpa top up)**. Server Python **memilih sendiri model gratis terbaik** yang tersedia (saat diuji: *Google Gemma 4 31B*) dan **otomatis pindah ke model cadangan** bila kuota satu model habis.

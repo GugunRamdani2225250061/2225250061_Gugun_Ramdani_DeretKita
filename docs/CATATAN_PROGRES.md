@@ -4,6 +4,18 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — Kak Deret: DeepSeek gratis di HP lewat Puter.js (jalur gabungan)
+- **Yang dikerjakan**:
+  - Pilihan Gugun: **gabungan**. Kak Deret memakai **server** (API key di server) bila tersedia; jika tidak, **otomatis memakai DeepSeek gratis lewat Puter.js** (tanpa API key; siswa masuk akun Puter sekali; kuota gratis bulanan per akun, model *user-pays*).
+  - Sudah dicek: OpenRouter **tidak** punya DeepSeek gratis; DeepSeek resmi butuh top up. Puter.js menyediakan model DeepSeek (`deepseek/deepseek-v4.1-flash`, cadangan `deepseek-v4-flash`, `deepseek-chat-v3.1`).
+  - `src/lib/puter.js` (memuat Puter.js hanya saat dibutuhkan, masuk/keluar akun, cadangan model) dan `src/lib/promptRMT.js` (prompt mediator RMT, sama dengan `ai.py`, dengan tes).
+  - `KakDeret.jsx`: alur gabungan + tombol **Masuk akun Puter (gratis)** + pindah otomatis ke Puter bila server terputus. Pengaturan: saklar **"DeepSeek gratis lewat Puter"** & **Keluar dari akun Puter**.
+- **Hasil uji**: `npm test` 9/9. Uji browser (HP 360px): **Puter.js asli termuat** dari js.puter.com dan menawarkan masuk akun; alur penuh dengan Puter pengganti memakai model **deepseek/deepseek-v4.1-flash** + prompt RMT + konteks jawaban; saklar mati berfungsi. Uji lengkap & simulasi APK tetap lulus.
+- **Cara mengecek (untuk Gugun)**: buka web online di HP → Tanya Kak Deret → Masuk akun Puter → coba bertanya.
+- **Yang belum / masalah**: **masuk akun & jawaban Puter yang sungguhan belum diuji** (butuh akun Puter, harus dibuat sendiri). Data pertanyaan siswa melewati pihak ketiga (Puter), jadi perlu izin sekolah. Di APK, jendela masuk Puter mungkin tidak bisa terbuka (pakai server atau versi web).
+
+---
+
 ## 27 November 2026 — Aplikasi Android (APK) dibuat otomatis
 - **Yang dikerjakan**:
   - Proyek Android (Capacitor 7) di `apps/web/android/`; konfigurasi `apps/web/capacitor.config.json` (appId `id.deretkita.app`, nama DeretKita). Build web khusus APK: `vite build --mode apk` → `dist-apk/` (tanpa service worker).

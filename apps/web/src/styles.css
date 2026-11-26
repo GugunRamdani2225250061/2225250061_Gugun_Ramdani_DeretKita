@@ -833,6 +833,10 @@ input:focus, textarea:focus { border-color: var(--aksen, var(--aksen-def)); }
 .orbit-satelit .bentuk { animation: orbit-putar 14s linear infinite reverse; }
 @keyframes orbit-putar { to { transform: rotate(360deg); } }
 
+/* masuk akun Puter (Kak Deret DeepSeek gratis) */
+.masuk-puter { display: grid; gap: .5rem; padding: .8rem; border-radius: 12px; background: var(--kartu); border: 1px dashed #a5b4fc; }
+.masuk-puter p { margin: 0; }
+
 /* halaman Buka di HP */
 .grid-hp { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 1rem; }
 .kartu-hp { display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 5px solid var(--aksen); margin: 0; }

@@ -5,6 +5,7 @@ import { supabaseAktif, jumlahAntrean } from '../lib/sinkron.js'
 import { FONT, UKURAN } from '../lib/fonts.js'
 import { useState } from 'react'
 import { alamatAPI, cekAI, diAPK } from '../lib/ai.js'
+import { keluarPuter } from '../lib/puter.js'
 
 function ServerAI({ nilai }) {
   const [isi, setIsi] = useState(nilai || '')
@@ -80,6 +81,11 @@ export default function Pengaturan() {
       </section>
 
       <ServerAI nilai={pengaturan.apiUrl} />
+      <section className="kartu">
+        <Saklar label="DeepSeek gratis lewat Puter" ket="Jika server Kak Deret tidak tersedia, Kak Deret memakai DeepSeek gratis lewat Puter.js (siswa masuk akun Puter sekali; kuota gratis bulanan per akun)."
+          nilai={pengaturan.puterAktif !== false} onUbah={(v) => setPengaturan({ puterAktif: v })} />
+        <button className="btn teks-saja" onClick={async () => { await keluarPuter(); alert('Sudah keluar dari akun Puter di perangkat ini.') }}>Keluar dari akun Puter</button>
+      </section>
 
       <section className="kartu">
         <p>Masuk sebagai <strong>{profil.nama}</strong> ({profil.kode}{profil.kelas ? ` · kelas ${profil.kelas}` : ''})</p>
