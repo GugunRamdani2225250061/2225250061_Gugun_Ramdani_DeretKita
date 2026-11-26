@@ -26,6 +26,14 @@ Klik dua kali **`coba/DeretKita.html`**. Aplikasi terbuka di browser dan semua f
 2. **`cek-python.bat`**: cek semua kunci jawaban + contoh analisis uji coba.
 3. **`mulai-api.bat`**: menjalankan API Python. Di aplikasi: **Dasbor Guru → Analisis dengan Python**.
 
+### 🤖 Kak Deret (AI DeepSeek)
+1. Buat API key di https://platform.deepseek.com/api_keys (isi saldo dulu).
+2. Buka file **`.env`** di folder ini → isi `DEEPSEEK_API_KEY=sk-...` → simpan.
+3. Jalankan **`mulai-api.bat`** lalu **`mulai-aplikasi.bat`**.
+4. Di aplikasi: tombol **🤖 Tanya Kak Deret** di setiap soal, atau menu kiri **Kak Deret**.
+
+API key **tidak pernah** ditaruh di kode/GitHub. Panduan lengkap (termasuk agar aktif di web online lewat Render.com): [docs/PANDUAN_AI_DEEPSEEK.md](docs/PANDUAN_AI_DEEPSEEK.md).
+
 ---
 
 ## 🧪 Alur uji coba soal ke siswa (tugas minggu ini)
@@ -37,6 +45,9 @@ Klik dua kali **`coba/DeretKita.html`**. Aplikasi terbuka di browser dan semua f
 6. Revisi soal di `apps/web/src/content/soal.js` dan `docs/BANK_SOAL_DRAFT.md`, lalu ubah `status` menjadi `'siap'`.
 
 ## Fitur
+- **Lobi** penuh warna dengan bangun datar, bangun ruang, dan rumus melayang; **menu vertikal di kiri** (di HP menjadi kolom ikon dan disembunyikan saat belajar agar fokus)
+- **Model pembelajaran RMT** (*Rigorous Mathematical Thinking*): setiap layar modul menunjukkan tahapnya. Amati & kenali → Bangun konsep → Terapkan & hubungkan ([docs/RMT.md](docs/RMT.md))
+- **Kak Deret**: tutor AI (DeepSeek) sebagai mediator RMT, membimbing dengan pertanyaan, tidak memberi jawaban langsung
 - 7 modul: pre-training istilah → pola dikali → suku ke-n → pola mengecil → deret → geometri vs aritmetika → tantangan literasi
 - Materi per layar pendek, visual animasi (bakteri, lipatan kertas, bola memantul, pesan berantai), warna simbol konsisten (**a** biru, **r** oranye, **n** hijau)
 - Contoh soal terurai + *fading* (siswa mengisi langkah yang dikosongkan)
@@ -59,6 +70,8 @@ Klik dua kali **`coba/DeretKita.html`**. Aplikasi terbuka di browser dan semua f
 | [docs/CONTENT_DESIGN.md](docs/CONTENT_DESIGN.md) | Desain materi (beban kognitif + literasi) |
 | [docs/BANK_SOAL_DRAFT.md](docs/BANK_SOAL_DRAFT.md) | 13 draft soal + kunci |
 | [docs/INSTRUMEN.md](docs/INSTRUMEN.md) | Instrumen penelitian A–H |
+| [docs/RMT.md](docs/RMT.md) | Model pembelajaran RMT & penerapannya |
+| [docs/PANDUAN_AI_DEEPSEEK.md](docs/PANDUAN_AI_DEEPSEEK.md) | Cara memasang & memakai Kak Deret (API key DeepSeek) |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Jadwal & tugas |
 | [docs/AI_WORKFLOW.md](docs/AI_WORKFLOW.md) | Cara kerja dengan AI + daftar cross-check |
 | [docs/CATATAN_PROGRES.md](docs/CATATAN_PROGRES.md) | Catatan setiap sesi kerja |

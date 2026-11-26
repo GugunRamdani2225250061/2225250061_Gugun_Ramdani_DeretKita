@@ -18,6 +18,7 @@ export function ringkasPerSoal(jawaban) {
       paas: rata(rows.map((r) => r.paas)),
       persepsi: rata(rows.map((r) => r.persepsi)),
       bantuan: rata(rows.map((r) => r.butuh_bantuan)),
+      ai: rata(rows.map((r) => r.ai_dipakai ?? 0)),
     }
   })
 }
@@ -34,7 +35,7 @@ export function skorLeppink(respon) {
 
 export { rata }
 
-const KOLOM = ['kode_siswa', 'soal_id', 'benar', 'waktu_detik', 'butuh_bantuan', 'persepsi', 'paas', 'modul_id', 'hint_dipakai', 'skor_bagian', 'kode_kelas', 'waktu']
+const KOLOM = ['kode_siswa', 'soal_id', 'benar', 'waktu_detik', 'butuh_bantuan', 'persepsi', 'paas', 'modul_id', 'hint_dipakai', 'ai_dipakai', 'skor_bagian', 'kode_kelas', 'waktu']
 
 export function keCSV(jawaban) {
   const esc = (v) => {

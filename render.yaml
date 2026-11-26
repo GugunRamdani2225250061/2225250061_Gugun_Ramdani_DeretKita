@@ -1,0 +1,23 @@
+# Blueprint Render.com: menjalankan API Python (Kak Deret + analisis) secara online, gratis.
+# Render > New > Blueprint > pilih repo ini. Isi DEEPSEEK_API_KEY saat diminta.
+services:
+  - type: web
+    name: deretkita-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r services/api/requirements.txt
+    startCommand: cd services/api && uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: DEEPSEEK_MODEL
+        value: deepseek-flash
+      - key: AI_BATAS_PER_10_MENIT
+        value: "20"
+      - key: AI_BATAS_HARIAN
+        value: "1000"
+      - key: ALLOWED_ORIGINS
+        value: https://gugunramdani2225250061.github.io,http://localhost:5173

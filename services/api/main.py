@@ -13,9 +13,11 @@ import sys
 import urllib.request
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+import ai
 
 # memakai fungsi yang sama dengan skrip penelitian di folder analisis/
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "analisis"))
@@ -23,8 +25,17 @@ from analisis_uji_coba import hitung  # noqa: E402
 from angket import ringkas_angket  # noqa: E402
 from deret_geometri import suku_ke_n, jumlah_n  # noqa: E402
 
-app = FastAPI(title="DeretKita API", version="0.1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app = FastAPI(title="DeretKita API", version="0.2.0")
+_asal = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "*").split(",") if o.strip()]
+app.add_middleware(CORSMiddleware, allow_origins=_asal, allow_methods=["*"], allow_headers=["*"])
+
+
+@app.middleware("http")
+async def izin_jaringan_lokal(request: Request, call_next):
+    # agar web online (https://...github.io) boleh memanggil server di laptop (localhost)
+    res = await call_next(request)
+    res.headers["Access-Control-Allow-Private-Network"] = "true"
+    return res
 
 
 class DataAnalisis(BaseModel):
@@ -34,7 +45,33 @@ class DataAnalisis(BaseModel):
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    return {"status": "ok", "ai": ai.aktif()}
+
+
+# ---------------- Kak Deret (DeepSeek) ----------------
+class PermintaanAI(BaseModel):
+    mode: str = "mediasi"  # mediasi | refleksi | tanya
+    konteks: dict = {}
+    pesan: str = Field("", max_length=500)
+    riwayat: list[dict] = []
+
+
+@app.get("/ai/status")
+def ai_status():
+    return {"aktif": ai.aktif(), "model": os.getenv("DEEPSEEK_MODEL", ai.MODEL_DEFAULT)}
+
+
+@app.post("/ai")
+def tanya_ai(data: PermintaanAI, request: Request):
+    """Dipanggil tombol 'Tanya Kak Deret' di aplikasi."""
+    try:
+        messages = ai.susun_pesan(data.mode, data.konteks, data.pesan, data.riwayat)
+        ai.cek_batas(request.client.host if request.client else "?")
+        return {"jawaban": ai.panggil_deepseek(messages)}
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except ai.GalatAI as e:
+        raise HTTPException(e.status, e.pesan)
 
 
 @app.post("/analisis")

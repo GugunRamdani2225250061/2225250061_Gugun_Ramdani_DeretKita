@@ -17,12 +17,14 @@ if exist "%~dp0.env" set ENVFILE=--env-file "%~dp0.env"
 
 echo.
 echo ==========================================================
-echo  API Python berjalan : http://localhost:8000/docs
-echo  Di aplikasi: Dasbor Guru ^> "Analisis dengan Python"
-echo  Berhenti            : tekan Ctrl+C
+echo  API Python + Kak Deret : http://localhost:8000/docs
+echo  Cek Kak Deret aktif    : http://localhost:8000/ai/status
+echo  (API key DeepSeek diisi di file .env, lihat docs\PANDUAN_AI_DEEPSEEK.md)
+echo  Jika Windows bertanya izin jaringan, pilih "Allow" agar HP bisa terhubung.
+echo  Berhenti               : tekan Ctrl+C
 echo ==========================================================
 echo.
-uvicorn main:app --reload --port 8000 %ENVFILE%
+uvicorn main:app --reload --host 0.0.0.0 --port 8000 %ENVFILE%
 pause
 exit /b
 

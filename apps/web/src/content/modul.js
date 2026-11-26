@@ -32,7 +32,7 @@ const DAFTAR = [
     segmen: [
       { jenis: 'materi', judul: 'Melipat kertas', teks: 'Selembar kertas dilipat dua. Setiap dilipat, tebalnya menjadi **dua kali lipat**.', visual: { tipe: 'lipat', langkah: 3 } },
       { jenis: 'materi', judul: 'Bakteri membelah', teks: 'Satu bakteri membelah menjadi 2, lalu 4, lalu 8. Setiap langkah [r:×2].', visual: { tipe: 'titik', awal: 1, rasio: 2, langkah: 3, satuan: 'bakteri' } },
-      { jenis: 'materi', judul: 'Barisan geometri', teks: 'Barisan yang setiap sukunya diperoleh dari suku sebelumnya **dikali bilangan tetap** disebut **barisan geometri**.', rumus: 'r' },
+      { jenis: 'materi', rmt: 2, judul: 'Barisan geometri', teks: 'Barisan yang setiap sukunya diperoleh dari suku sebelumnya **dikali bilangan tetap** disebut **barisan geometri**.', rumus: 'r' },
       { jenis: 'contoh', judul: 'Contoh 1', soal: 'Tentukan rasio barisan 5, 15, 45, 135.', langkah: [
         'Bagi suku ke-2 dengan suku ke-1: 15 : 5 = 3.',
         'Cek suku berikutnya: 45 : 15 = 3 ✔ dan 135 : 45 = 3 ✔',
@@ -50,14 +50,14 @@ const DAFTAR = [
     id: 'M2', judul: 'Suku ke-n', ringkas: 'Rumus Uₙ = a · rⁿ⁻¹', menit: 15,
     segmen: [
       { jenis: 'materi', judul: 'Perhatikan pola ini', teks: 'Barisan 3, 6, 12, 24. Suku pertama [a:a = 3], rasio [r:r = 2].', visual: { tipe: 'titik', awal: 3, rasio: 2, langkah: 2, satuan: '' } },
-      { jenis: 'materi', judul: 'Berapa kali dikali 2?', teks: 'Hitung banyaknya [r:× 2] pada setiap suku.', tabel: [
+      { jenis: 'materi', rmt: 2, judul: 'Berapa kali dikali 2?', teks: 'Hitung banyaknya [r:× 2] pada setiap suku.', tabel: [
         ['U₁', '[a:3]', '3'],
         ['U₂', '[a:3] [r:× 2]', '6'],
         ['U₃', '[a:3] [r:× 2 × 2]', '12'],
         ['U₄', '[a:3] [r:× 2 × 2 × 2]', '24'],
       ] },
-      { jenis: 'materi', judul: 'Polanya', teks: 'Suku ke-[n:4] dikali 2 sebanyak **3 kali**. Suku pertama belum dikali.\nJadi suku ke-[n:n] dikali [r:r] sebanyak **([n:n] − 1) kali**.' },
-      { jenis: 'materi', judul: 'Rumus suku ke-n', teks: 'Rumus suku ke-n barisan geometri:', rumus: 'Un' },
+      { jenis: 'materi', rmt: 2, judul: 'Polanya', teks: 'Suku ke-[n:4] dikali 2 sebanyak **3 kali**. Suku pertama belum dikali.\nJadi suku ke-[n:n] dikali [r:r] sebanyak **([n:n] − 1) kali**.' },
+      { jenis: 'materi', rmt: 2, judul: 'Rumus suku ke-n', teks: 'Rumus suku ke-n barisan geometri:', rumus: 'Un' },
       { jenis: 'contoh', judul: 'Contoh 1', soal: 'Tentukan suku ke-5 dari barisan 2, 6, 18, …', langkah: [
         '[a:a = 2], [r:r = 6 : 2 = 3], [n:n = 5]',
         'U₅ = 2 × 3⁽⁵⁻¹⁾ = 2 × 3⁴',
@@ -78,8 +78,8 @@ const DAFTAR = [
     id: 'M3', judul: 'Pola yang Mengecil', ringkas: 'Rasio antara 0 dan 1', menit: 10,
     segmen: [
       { jenis: 'materi', judul: 'Bola memantul', teks: 'Bola dijatuhkan dari 160 cm. Setiap memantul, tingginya tinggal **setengah**.', visual: { tipe: 'bola', tinggi: 160, rasio: 0.5, langkah: 4 } },
-      { jenis: 'materi', judul: 'Rasio kurang dari 1', teks: 'Barisannya 160, 80, 40, 20, … Setiap langkah [r:× ½].\nJika 0 < [r:r] < 1, barisan **mengecil**.' },
-      { jenis: 'materi', judul: 'Persen yang berkurang', teks: 'Turun 20% berarti yang tersisa 100% − 20% = **80%**.\nJadi setiap tahun harganya [r:× 0,8].' },
+      { jenis: 'materi', rmt: 2, judul: 'Rasio kurang dari 1', teks: 'Barisannya 160, 80, 40, 20, … Setiap langkah [r:× ½].\nJika 0 < [r:r] < 1, barisan **mengecil**.' },
+      { jenis: 'materi', rmt: 2, judul: 'Persen yang berkurang', teks: 'Turun 20% berarti yang tersisa 100% − 20% = **80%**.\nJadi setiap tahun harganya [r:× 0,8].' },
       { jenis: 'contoh', judul: 'Contoh 1', soal: 'Barisan 64, 32, 16, … Tentukan suku ke-6.', langkah: [
         '[a:a = 64], [r:r = 32 : 64 = ½], [n:n = 6]',
         'U₆ = 64 × (½)⁵ = 64 : 32',
@@ -97,8 +97,8 @@ const DAFTAR = [
     id: 'M4', judul: 'Deret: Menjumlahkan', ringkas: 'Rumus Sₙ untuk total', menit: 15,
     segmen: [
       { jenis: 'materi', judul: 'Pesan berantai', teks: 'Dina mengirim pesan ke 3 teman. Setiap penerima meneruskan ke 3 orang baru.', visual: { tipe: 'titik', awal: 3, rasio: 3, langkah: 2, satuan: 'orang' } },
-      { jenis: 'materi', judul: 'Barisan atau deret?', teks: 'Banyak penerima tiap hari: 3, 9, 27, … → **barisan**.\n**Total** penerima: 3 + 9 + 27 + … → **deret**.' },
-      { jenis: 'materi', judul: 'Rumus jumlah n suku', teks: 'Untuk [r:r] > 1:', rumus: 'Sn', catatan: 'Jika 0 < r < 1, pakai Sₙ = a(1 − rⁿ) : (1 − r).' },
+      { jenis: 'materi', rmt: 2, judul: 'Barisan atau deret?', teks: 'Banyak penerima tiap hari: 3, 9, 27, … → **barisan**.\n**Total** penerima: 3 + 9 + 27 + … → **deret**.' },
+      { jenis: 'materi', rmt: 2, judul: 'Rumus jumlah n suku', teks: 'Untuk [r:r] > 1:', rumus: 'Sn', catatan: 'Jika 0 < r < 1, pakai Sₙ = a(1 − rⁿ) : (1 − r).' },
       { jenis: 'contoh', judul: 'Contoh 1', soal: 'Hitung 2 + 4 + 8 + 16.', langkah: [
         '[a:a = 2], [r:r = 2], [n:n = 4]',
         'S₄ = 2 × (2⁴ − 1) : (2 − 1)',
@@ -121,7 +121,7 @@ const DAFTAR = [
         ['Aritmetika', '**ditambah** bilangan tetap', '3, 7, 11, 15 (+4)'],
         ['Geometri', '**dikali** bilangan tetap', '3, 6, 12, 24 ([r:×2])'],
       ] },
-      { jenis: 'materi', judul: 'Cara mengecek', teks: '1. Hitung **selisih**: U₂ − U₁, U₃ − U₂. Jika sama → aritmetika.\n2. Jika tidak, hitung **hasil bagi**: U₂ : U₁, U₃ : U₂. Jika sama → geometri.' },
+      { jenis: 'materi', rmt: 2, judul: 'Cara mengecek', teks: '1. Hitung **selisih**: U₂ − U₁, U₃ − U₂. Jika sama → aritmetika.\n2. Jika tidak, hitung **hasil bagi**: U₂ : U₁, U₃ : U₂. Jika sama → geometri.' },
       { jenis: 'contoh', judul: 'Contoh', soal: 'Barisan 2, 6, 18, 54. Aritmetika atau geometri?', langkah: [
         'Selisih: 6 − 2 = 4, 18 − 6 = 12. Tidak sama.',
         'Hasil bagi: 6 : 2 = 3, 18 : 6 = 3, 54 : 18 = 3. Sama!',
@@ -134,7 +134,7 @@ const DAFTAR = [
   {
     id: 'M6', judul: 'Tantangan Literasi', ringkas: 'Masalah nyata, keputusan nyata', menit: 20,
     segmen: [
-      { jenis: 'materi', judul: 'Empat langkah literasi', teks: '1. **Pahami**: apa yang diketahui dan ditanya?\n2. **Modelkan**: dikali tetap? Berapa [a:a] dan [r:r]?\n3. **Hitung**: pakai Uₙ atau Sₙ.\n4. **Periksa**: apakah hasilnya masuk akal?' },
+      { jenis: 'materi', rmt: 3, judul: 'Empat langkah literasi', teks: '1. **Pahami**: apa yang diketahui dan ditanya?\n2. **Modelkan**: dikali tetap? Berapa [a:a] dan [r:r]?\n3. **Hitung**: pakai Uₙ atau Sₙ.\n4. **Periksa**: apakah hasilnya masuk akal?' },
     ],
     soal: ['G12', 'G13'],
     refleksi: 'Jika kamu boleh memilih hadiah selama 30 hari, tawaran mana yang kamu pilih? Mengapa?',

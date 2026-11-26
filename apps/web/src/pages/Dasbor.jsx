@@ -49,19 +49,19 @@ export default function Dasbor() {
         {per.length === 0 ? <p>Belum ada data. Kerjakan beberapa soal dulu.</p> : (
           <div className="gulir-x">
             <table className="tabel data">
-              <thead><tr><th>Soal</th><th>n</th><th>p</th><th>Waktu (s)</th><th>Paas</th><th>Persepsi</th><th>Bantuan</th></tr></thead>
+              <thead><tr><th>Soal</th><th>n</th><th>p</th><th>Waktu (s)</th><th>Paas</th><th>Persepsi</th><th>Bantuan</th><th>AI</th></tr></thead>
               <tbody>
                 {per.map((s) => (
                   <tr key={s.soal_id} className={s.paas >= 7 || s.persepsi >= 3.5 ? 'perhatian' : ''}>
                     <td title={SOAL[s.soal_id]?.judul}>{s.soal_id}</td><td>{s.n}</td><td>{f(s.p)}</td>
-                    <td>{f(s.waktu, 0)}</td><td>{f(s.paas, 1)}</td><td>{f(s.persepsi, 1)}</td><td>{f(s.bantuan)}</td>
+                    <td>{f(s.waktu, 0)}</td><td>{f(s.paas, 1)}</td><td>{f(s.persepsi, 1)}</td><td>{f(s.bantuan)}</td><td>{f(s.ai, 1)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         )}
-        <p className="kecil">p = proporsi benar pada percobaan pertama. Persepsi: 1 terlalu mudah, 2 sesuai, 3 sulit, 4 terlalu sulit. Baris berwarna = perlu direvisi.</p>
+        <p className="kecil">p = proporsi benar pada percobaan pertama. Persepsi: 1 terlalu mudah, 2 sesuai, 3 sulit, 4 terlalu sulit. AI = rata-rata berapa kali siswa bertanya ke Kak Deret per soal. Baris berwarna = perlu direvisi.</p>
       </section>
 
       <section className="kartu">

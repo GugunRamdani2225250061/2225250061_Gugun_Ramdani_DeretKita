@@ -88,6 +88,7 @@ def hitung(records):
             "persepsi": _rata(_angka(r.get("persepsi")) for r in rows),
             "paas": _rata(_angka(r.get("paas")) for r in rows),
             "bantuan": _rata(_angka(r.get("butuh_bantuan")) for r in rows),
+            "ai": _rata(_angka(r.get("ai_dipakai")) for r in rows),  # pemakaian Kak Deret
         }
         d["kategori"] = kategori_p(d["p"])
         d["rekomendasi"] = rekomendasi(d["p"], d["persepsi"], d["paas"], d["bantuan"])

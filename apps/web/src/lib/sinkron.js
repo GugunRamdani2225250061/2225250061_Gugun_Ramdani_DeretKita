@@ -46,7 +46,7 @@ function keBaris(tabel, row) {
     return {
       kode_siswa: row.kode_siswa, kode_kelas: row.kode_kelas || null, soal_id: row.soal_id, modul_id: row.modul_id,
       benar: row.benar === 1, skor_bagian: row.skor_bagian, waktu_detik: row.waktu_detik,
-      hint_dipakai: row.hint_dipakai, butuh_bantuan: row.butuh_bantuan === 1,
+      hint_dipakai: row.hint_dipakai, ai_dipakai: row.ai_dipakai ?? 0, butuh_bantuan: row.butuh_bantuan === 1,
       persepsi: row.persepsi === '' ? null : row.persepsi, paas: row.paas, detail: row.detail,
     }
   }

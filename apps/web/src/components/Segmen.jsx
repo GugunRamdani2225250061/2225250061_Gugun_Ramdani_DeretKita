@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Teks, { Inline } from './Teks.jsx'
 import Rumus from './Rumus.jsx'
 import Visual from './Visual.jsx'
+import KakDeret from './KakDeret.jsx'
 import { cocokJawaban, formatAngka } from '../lib/geometri.js'
 
 // Langkah contoh yang harus diisi siswa (fading worked example)
@@ -53,6 +54,13 @@ function Contoh({ s, onSiap }) {
       {tampil < s.langkah.length && terakhirOk && (
         <button className="btn sekunder" onClick={() => setTampil(tampil + 1)}>Tampilkan langkah berikutnya ↓</button>
       )}
+      <KakDeret
+        mode="mediasi"
+        label="Tanya Kak Deret tentang contoh ini"
+        aksiCepat={[{ label: 'Kenapa langkah ini begitu?' }, { label: 'Dari mana angka rasionya?' }]}
+        konteks={{ tahap_rmt: 2, judul: s.judul, pertanyaan: s.soal, langkah: 'Contoh soal terurai',
+          jawaban_siswa: s.langkah.slice(0, tampil).map((l) => (typeof l === 'string' ? l : l.teks)) }}
+      />
     </div>
   )
 }

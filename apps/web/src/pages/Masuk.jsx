@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore, masuk, pilihProfil } from '../lib/store.js'
 import { kirimAntrean } from '../lib/sinkron.js'
-import { Halaman } from '../components/Layout.jsx'
+import LatarMatematika from '../components/LatarMatematika.jsx'
+import Bentuk from '../components/Bentuk.jsx'
 
 export default function Masuk() {
   const { daftarProfil } = useStore()
@@ -19,38 +20,47 @@ export default function Masuk() {
   }
 
   return (
-    <Halaman judul="DeretKita" kembali={null}>
-      <section className="kartu sambutan">
-        <div className="sambutan-ikon" aria-hidden>🦠 📄 🏀 💬 💰</div>
-        <h2>Selamat datang!</h2>
-        <p>Belajar <strong>barisan dan deret geometri</strong> dari kejadian sehari-hari: bakteri membelah, bola memantul, pesan berantai, dan tabungan.</p>
-      </section>
+    <main className="halaman-masuk">
+      <LatarMatematika />
+      <div className="masuk-isi">
+        <div className="masuk-logo">
+          <Bentuk jenis="kubus" warna="#fbbf24" ukuran={64} />
+          <h1>Deret<span>Kita</span></h1>
+          <p>Petualangan Barisan &amp; Deret Geometri</p>
+        </div>
 
-      <form className="kartu" onSubmit={mulai}>
-        <label className="field">
-          <span>Nama panggilan</span>
-          <input value={nama} maxLength={20} onChange={(e) => setNama(e.target.value)} placeholder="mis. Raka" autoComplete="off" required />
-          <small>Cukup nama panggilan, jangan nama lengkap.</small>
-        </label>
-        <label className="field">
-          <span>Kode kelas (jika ada)</span>
-          <input value={kelas} maxLength={12} onChange={(e) => setKelas(e.target.value)} placeholder="mis. 9A" autoComplete="off" />
-        </label>
-        <button className="btn lebar" type="submit">Mulai belajar</button>
-      </form>
-
-      {daftarProfil.length > 0 && (
-        <section className="kartu">
-          <h3>Pernah masuk di perangkat ini</h3>
-          <div className="daftar-profil">
-            {daftarProfil.map((p) => (
-              <button key={p.kode} className="btn sekunder" onClick={() => { pilihProfil(p); kirimAntrean(p); nav('/') }}>
-                {p.nama} <small>({p.kode}{p.kelas ? ` · ${p.kelas}` : ''})</small>
-              </button>
-            ))}
-          </div>
+        <section className="kartu sambutan">
+          <div className="sambutan-ikon" aria-hidden>🦠 📄 🏀 💬 💰</div>
+          <h2>Selamat datang!</h2>
+          <p>Belajar <strong>barisan dan deret geometri</strong> dari kejadian sehari-hari: bakteri membelah, bola memantul, pesan berantai, dan tabungan.</p>
         </section>
-      )}
-    </Halaman>
+
+        <form className="kartu" onSubmit={mulai}>
+          <label className="field">
+            <span>Nama panggilan</span>
+            <input value={nama} maxLength={20} onChange={(e) => setNama(e.target.value)} placeholder="mis. Raka" autoComplete="off" required />
+            <small>Cukup nama panggilan, jangan nama lengkap.</small>
+          </label>
+          <label className="field">
+            <span>Kode kelas (jika ada)</span>
+            <input value={kelas} maxLength={12} onChange={(e) => setKelas(e.target.value)} placeholder="mis. 9A" autoComplete="off" />
+          </label>
+          <button className="btn lebar btn-besar" type="submit">🚀 Mulai belajar</button>
+        </form>
+
+        {daftarProfil.length > 0 && (
+          <section className="kartu">
+            <h3>Pernah masuk di perangkat ini</h3>
+            <div className="daftar-profil">
+              {daftarProfil.map((p) => (
+                <button key={p.kode} className="btn sekunder" onClick={() => { pilihProfil(p); kirimAntrean(p); nav('/') }}>
+                  {p.nama} <small>({p.kode}{p.kelas ? ` · ${p.kelas}` : ''})</small>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </main>
   )
 }

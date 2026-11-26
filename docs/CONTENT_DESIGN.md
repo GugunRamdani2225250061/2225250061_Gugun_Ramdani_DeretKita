@@ -25,6 +25,16 @@ Setiap soal literasi memakai 4 langkah di layar:
 
 Konteks PISA: **personal** (tabungan, lipat kertas), **pekerjaan** (penyusutan harga), **sosial** (pesan berantai, berita viral), **ilmiah** (bakteri, obat, pantulan bola).
 
+## 2b. Model Pembelajaran RMT
+Setiap modul mengikuti 3 tahap *Rigorous Mathematical Thinking* (rincian: [RMT.md](RMT.md)):
+1. **Pengembangan Kognitif**: kartu istilah & visual (fungsi kognitif kualitatif)
+2. **Konten sebagai Proses**: menurunkan rumus dari tabel pola, contoh terurai + fading (kuantitatif & tepat)
+3. **Praktik Konstruksi Kognitif Konseptual**: soal literasi 4 langkah & refleksi (relasional-abstrak)
+
+Mediator: guru dan **Kak Deret** (AI), yang membimbing dengan pertanyaan tanpa memberi jawaban.
+
+**Kebijakan hiasan**: bangun datar/ruang & rumus melayang hanya di lobi dan halaman masuk (motivasi). Layar belajar tetap bersih (prinsip *coherence*).
+
 ## 3. Peta Modul
 | Modul | Judul | Isi | Estimasi |
 |---|---|---|---|

@@ -23,6 +23,7 @@ create table if not exists public.jawaban (
   skor_bagian numeric,             -- proporsi langkah yang benar pada percobaan pertama
   waktu_detik int,
   hint_dipakai int default 0,
+  ai_dipakai int default 0,        -- berapa kali bertanya ke Kak Deret (AI)
   butuh_bantuan boolean,
   persepsi int check (persepsi between 1 and 4),
   paas int check (paas between 1 and 9),

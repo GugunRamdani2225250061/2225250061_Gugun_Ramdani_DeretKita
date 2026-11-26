@@ -79,6 +79,13 @@ Rincian materi & konteks: [CONTENT_DESIGN.md](CONTENT_DESIGN.md). Draft soal: [B
 | F11 | **PWA installable + offline** | Tombol "Pasang Aplikasi" dan materi tersimpan di HP. | Akses tanpa Play Store |
 | F12 | **Dasbor guru/peneliti** | Tabel progres, soal tersulit, rata-rata beban, ekspor CSV. | Data penelitian |
 
+### 5.1b Ditambahkan (v0.2)
+| ID | Fitur | Deskripsi |
+|---|---|---|
+| F13 | **Model RMT** | Setiap layar modul dipetakan ke 3 tahap *Rigorous Mathematical Thinking*, dengan penunjuk tahap & halaman penjelasan |
+| F14 | **Kak Deret (AI DeepSeek)** | Tutor AI sebagai mediator RMT di soal, contoh, refleksi, dan halaman tanya bebas. Tidak memberi jawaban akhir. API key hanya di server |
+| F15 | **Lobi & menu kiri** | Lobi penuh warna (bangun datar/ruang, rumus, cincin progres), menu vertikal di kiri |
+
 ### 5.2 Fase lanjut (Nice to have)
 - Mode **refleksi**: siswa menulis/merekam "aku belajar…" (*self-explanation*).
 - **Analisis Python** otomatis di server: indeks kesukaran soal, korelasi beban dan skor, grafik.

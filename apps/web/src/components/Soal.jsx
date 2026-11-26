@@ -2,9 +2,17 @@ import { useRef, useState } from 'react'
 import Teks, { Inline } from './Teks.jsx'
 import Visual from './Visual.jsx'
 import RatingBeban from './RatingBeban.jsx'
+import KakDeret from './KakDeret.jsx'
 import { cocokJawaban, cariSalahUmum, formatAngka } from '../lib/geometri.js'
 
-function Bagian({ b, nomor, total, onSelesai }) {
+const AKSI_MEDIASI = [
+  { label: 'Aku bingung mulai dari mana' },
+  { label: 'Informasi apa yang penting?' },
+  { label: 'Kenapa jawabanku salah?' },
+]
+
+function Bagian({ b, nomor, total, soal, modulJudul, onSelesai }) {
+  const [aiDipakai, setAiDipakai] = useState(0)
   const [isian, setIsian] = useState('')
   const [pilih, setPilih] = useState(null)
   const [status, setStatus] = useState(null) // null | 'salah' | 'benar' | 'lihat'
@@ -89,15 +97,27 @@ function Bagian({ b, nomor, total, onSelesai }) {
         )}
         {selesai && (
           <button className="btn" onClick={() => onSelesai({
-            benarPertama: status === 'benar' && percobaan === 1, percobaan, hint: hintKe, lihat: status === 'lihat', jawaban: riwayat,
+            benarPertama: status === 'benar' && percobaan === 1, percobaan, hint: hintKe, lihat: status === 'lihat', ai: aiDipakai, jawaban: riwayat,
           })}>Lanjut</button>
         )}
       </div>
+
+      {!selesai && (
+        <KakDeret
+          mode="mediasi"
+          aksiCepat={AKSI_MEDIASI}
+          onPakai={() => setAiDipakai((n) => n + 1)}
+          konteks={{
+            tahap_rmt: 3, modul: modulJudul, judul: soal.judul, cerita: soal.cerita, langkah: b.tahap,
+            pertanyaan: b.tanya, opsi: b.opsi, jawaban_siswa: riwayat, kunci: kunciTeks,
+          }}
+        />
+      )}
     </div>
   )
 }
 
-export default function Soal({ soal, id, modeUjiCoba, onSelesai }) {
+export default function Soal({ soal, id, modeUjiCoba, modulJudul, onSelesai }) {
   const [idx, setIdx] = useState(0)
   const [tahapRating, setTahapRating] = useState(false)
   const mulai = useRef(Date.now())
@@ -119,8 +139,9 @@ export default function Soal({ soal, id, modeUjiCoba, onSelesai }) {
           benar: c.every((x) => x.benarPertama) ? 1 : 0,
           skor_bagian: +(c.filter((x) => x.benarPertama).length / c.length).toFixed(2),
           waktu_detik: durasi.current,
-          butuh_bantuan: c.some((x) => x.hint > 0 || x.lihat) ? 1 : 0,
+          butuh_bantuan: c.some((x) => x.hint > 0 || x.lihat || x.ai > 0) ? 1 : 0,
           hint_dipakai: c.reduce((t, x) => t + x.hint, 0),
+          ai_dipakai: c.reduce((t, x) => t + (x.ai || 0), 0),
           paas, persepsi, detail: c,
         })
       }} />
@@ -136,7 +157,7 @@ export default function Soal({ soal, id, modeUjiCoba, onSelesai }) {
       <h2>{soal.judul}</h2>
       {soal.cerita && <div className="cerita"><Teks>{soal.cerita}</Teks></div>}
       {soal.visual && <Visual v={soal.visual} />}
-      <Bagian key={idx} b={soal.bagian[idx]} nomor={idx + 1} total={soal.bagian.length} onSelesai={selesaiBagian} />
+      <Bagian key={idx} b={soal.bagian[idx]} nomor={idx + 1} total={soal.bagian.length} soal={soal} modulJudul={modulJudul} onSelesai={selesaiBagian} />
     </section>
   )
 }

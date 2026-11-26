@@ -77,6 +77,12 @@ Ukuran build: ±75 KB gzip untuk JS utama. Pustaka Supabase hanya diunduh jika S
 | POST | `/analisis` | body `{records, angket}` dari Dasbor → statistik butir + skor angket |
 | GET | `/geometri?a=&r=&n=` | hitung Uₙ dan Sₙ |
 | GET | `/analisis/supabase?kode_kelas=` | analisis langsung dari data Supabase (butuh service key) |
+| GET | `/ai/status` | apakah Kak Deret aktif (API key DeepSeek terisi) |
+| POST | `/ai` | body `{mode: mediasi\|refleksi\|tanya, konteks, pesan, riwayat}` → `{jawaban}`; diteruskan ke DeepSeek `deepseek-flash` |
+
+**Kak Deret (AI)**: `services/api/ai.py` menyusun prompt mediator RMT, memanggil `https://api.deepseek.com/chat/completions` dengan `DEEPSEEK_API_KEY` dari `.env` (tidak pernah ke browser), dan membatasi pemakaian (per perangkat per 10 menit & per hari). Panduan: [PANDUAN_AI_DEEPSEEK.md](PANDUAN_AI_DEEPSEEK.md). Deploy online: `render.yaml` (Render Blueprint).
+
+**Tampilan**: `components/Sidebar.jsx` (menu kiri), `LatarMatematika.jsx` + `Bentuk.jsx` (bangun datar/ruang SVG), `GridModul.jsx`, `RmtTahap.jsx`, `KakDeret.jsx`; halaman `Beranda` (lobi), `DaftarModul`, `AngketMenu`, `Tanya`, `Rmt`.
 
 Dokumentasi interaktif: `http://localhost:8000/docs`. Deploy (opsional): Render.com → root `services/api` → start `uvicorn main:app --host 0.0.0.0 --port $PORT`, lalu isi variabel `VITE_API_URL` di GitHub.
 

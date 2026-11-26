@@ -7,6 +7,9 @@ import { antre } from '../lib/sinkron.js'
 import { Halaman } from '../components/Layout.jsx'
 import Segmen from '../components/Segmen.jsx'
 import Soal from '../components/Soal.jsx'
+import KakDeret from '../components/KakDeret.jsx'
+import RmtTahap from '../components/RmtTahap.jsx'
+import { tahapLangkah } from '../content/rmt.js'
 
 function hitungBintang(kode, modul) {
   const terakhir = {}
@@ -67,7 +70,7 @@ function Modul({ id }) {
     )
   } else if (l.tipe === 'soal') {
     konten = (
-      <Soal key={pos} id={l.id} soal={SOAL[l.id]} modeUjiCoba={pengaturan.modeUjiCoba} onSelesai={(hasil) => {
+      <Soal key={pos} id={l.id} soal={SOAL[l.id]} modeUjiCoba={pengaturan.modeUjiCoba} modulJudul={modul.judul} onSelesai={(hasil) => {
         const row = simpanJawaban({ ...hasil, modul_id: modul.id })
         antre('jawaban', row, profil)
         maju()
@@ -84,6 +87,14 @@ function Modul({ id }) {
         <p className="label-jenis">Refleksi</p>
         <h2>{modul.refleksi}</h2>
         <textarea rows={4} value={teksRefleksi} onChange={(e) => setTeksRefleksi(e.target.value)} placeholder="Tulis dengan kata-katamu sendiri…" />
+        {teksRefleksi.trim().length >= 10 && (
+          <KakDeret
+            mode="refleksi"
+            label="Minta tanggapan Kak Deret"
+            aksiCepat={[{ label: 'Kirim refleksiku', pesan: teksRefleksi.trim() }]}
+            konteks={{ tahap_rmt: 3, modul: modul.judul, pertanyaan_refleksi: modul.refleksi }}
+          />
+        )}
         <div className="navigasi">
           <button className="btn sekunder" onClick={simpan}>Lewati</button>
           <button className="btn" disabled={!teksRefleksi.trim()} onClick={simpan}>Simpan</button>
@@ -112,6 +123,7 @@ function Modul({ id }) {
   return (
     <Halaman judul={`${modul.ikon} ${modul.judul}`} warna={modul.warna}>
       <div className="bar-progres tipis" aria-label={`Progres modul ${persen}%`}><span style={{ width: `${persen}%` }} /></div>
+      {l.tipe !== 'selesai' && <RmtTahap tahap={tahapLangkah(l)} />}
       {konten}
     </Halaman>
   )

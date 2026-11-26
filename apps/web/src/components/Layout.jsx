@@ -10,11 +10,11 @@ export function Kepala({ judul, kembali = '/', warna }) {
   )
 }
 
-export function Halaman({ judul, kembali, warna, children }) {
+export function Halaman({ judul, kembali, warna, lebar = false, children }) {
   return (
     <>
       <Kepala judul={judul} kembali={kembali} warna={warna} />
-      <main className="isi" style={warna ? { '--aksen': warna } : undefined}>{children}</main>
+      <main className={`isi ${lebar ? 'isi-lebar' : ''}`} style={warna ? { '--aksen': warna } : undefined}>{children}</main>
     </>
   )
 }

@@ -4,6 +4,25 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 26 November 2026 — Kak Deret (AI DeepSeek), model RMT, lobi baru & menu kiri
+- **Yang dikerjakan**:
+  - **Kak Deret**: tutor AI DeepSeek (`deepseek-flash`) sebagai mediator RMT. Ada di setiap soal, contoh soal, refleksi, dan halaman Tanya. Tidak memberi jawaban akhir, maksimal ±60 kata. API key **hanya** di `.env`/server, pemakaian dibatasi (per 10 menit & per hari). Pemakaian AI dicatat (`ai_dipakai`) di Dasbor & CSV.
+  - **Model RMT**: 3 tahap (Pengembangan Kognitif → Konten sebagai Proses → Praktik Konstruksi Kognitif Konseptual). Penunjuk tahap tampil di setiap layar modul, dan ada halaman penjelasan RMT.
+  - **Tampilan**: menu vertikal di kiri (HP: kolom ikon, disembunyikan saat belajar), lobi baru (hero bergradasi, cincin progres, statistik, kartu rumus, kartu modul berlambang bangun datar/ruang, latar rumus & bangun melayang), halaman masuk baru, halaman Semua Modul & Angket.
+  - Finishing: `mulai-api.bat` bisa diakses HP satu Wi-Fi, `render.yaml` untuk server online, `.env` sudah dibuat (tinggal isi key), migrasi Supabase `0002_ai_dipakai.sql`.
+- **File yang berubah**: `services/api/ai.py` (baru), `services/api/main.py`, `services/api/test_main.py`, `apps/web/src/` (Sidebar, LatarMatematika, Bentuk, GridModul, KakDeret, RmtTahap, content/rmt.js, pages Beranda/Masuk/DaftarModul/AngketMenu/Tanya/Rmt, App, Soal, Segmen, Modul, styles.css), `docs/RMT.md`, `docs/PANDUAN_AI_DEEPSEEK.md`, `render.yaml`, `.env.example`, `mulai-api.bat`, `coba/DeretKita.html`.
+- **Hasil uji (oleh AI)**: `npm test` 7/7, `pytest` 8/8, 22 kunci jawaban benar. Uji browser lengkap 29/29 lulus memakai server Python asli dan **DeepSeek palsu** (agar tidak memakai saldo), termasuk: API key tidak pernah sampai ke browser, tahap RMT benar, tidak ada geser ke samping di HP 360px, menu kiri di laptop, offline, dan file `coba/DeretKita.html`.
+- **Cara mengecek (untuk Gugun)**:
+  1. Buat API key DeepSeek → isi di `.env` → jalankan `mulai-api.bat` & `mulai-aplikasi.bat` (lihat `docs/PANDUAN_AI_DEEPSEEK.md`).
+  2. Kerjakan satu soal, jawab salah, lalu tekan **🤖 Tanya Kak Deret** → pastikan ia membimbing, bukan memberi jawaban.
+  3. Coba menu kiri di laptop dan di HP.
+- **Yang belum / masalah**:
+  - Kak Deret **belum dicoba dengan DeepSeek asli** karena API key belum ada. Periksa kualitas jawabannya saat pertama dipakai.
+  - Agar Kak Deret aktif di web online (GitHub Pages), server Python harus di-deploy ke Render dan `VITE_API_URL` diisi di GitHub (langkah ada di panduan).
+- **Langkah berikutnya**: isi API key, coba Kak Deret, uji coba soal ke siswa, deploy server ke Render.
+
+---
+
 ## 13 November 2026 — Tampilan lebih berwarna
 - **Yang dikerjakan**: setiap modul punya warna & ikon sendiri (dipakai di daftar modul, kepala halaman, tombol, progres). Kepala & kartu sapaan bergradasi; label layar berwarna (💡 Istilah, 📖 Materi, ✏️ Contoh, 🎯 Soal); huruf pilihan ganda berwarna; skala usaha mental hijau (ringan) → merah (berat); animasi bintang saat modul selesai. Warna simbol **a/r/n** di rumus tidak diubah (prinsip *signaling*).
 - **File yang berubah**: `apps/web/src/styles.css` (blok "TEMA WARNA-WARNI" di akhir file), `content/modul.js` (TEMA warna & ikon), `Beranda.jsx`, `Modul.jsx`, `Layout.jsx`, `Segmen.jsx`, `Soal.jsx`, `RatingBeban.jsx`, `Masuk.jsx`, `coba/DeretKita.html`.

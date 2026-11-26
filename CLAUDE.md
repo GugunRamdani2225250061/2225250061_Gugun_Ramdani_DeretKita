@@ -44,8 +44,11 @@ python analisis/analisis_uji_coba.py analisis/data/contoh_uji_coba.csv
 3. **Mobile-first**: desain untuk lebar 360 px dulu. Tombol ≥ 44 px, huruf ≥ 16 px.
 4. **Bahasa Indonesia** sederhana untuk semua teks UI. Nama variabel/kode boleh bahasa Inggris.
 5. **Privasi siswa**: tidak menyimpan nama lengkap, foto, atau nomor HP. Jangan pernah commit file di `docs/data-wawancara/raw/` atau `.env`.
-6. Soal berstatus `draft` hanya untuk **mode uji coba** (lencana "uji coba" tampil). Untuk penelitian lapangan, pakai soal berstatus `siap` (sudah diuji coba ke siswa dan direvisi). Jaga `soal.js` dan [docs/BANK_SOAL_DRAFT.md](docs/BANK_SOAL_DRAFT.md) tetap sama.
-7. Kerjakan per **tugas kecil**, lalu jalankan/cek hasilnya sebelum lanjut.
+6. **API key DeepSeek** hanya di `.env` / pengaturan server (Render). Jangan pernah menaruhnya di kode frontend, variabel `VITE_*`, atau commit. Semua panggilan AI lewat `services/api/ai.py`.
+7. **Model RMT**: setiap layar modul punya tahap RMT (`content/rmt.js`; segmen boleh `rmt: 1|2|3`). Kak Deret = mediator: tidak memberi jawaban akhir, maksimal ±60 kata.
+8. Hiasan (bangun datar/ruang melayang, `LatarMatematika`) **hanya** di lobi & halaman masuk, **tidak** di layar belajar (prinsip coherence).
+9. Soal berstatus `draft` hanya untuk **mode uji coba** (lencana "uji coba" tampil). Untuk penelitian lapangan, pakai soal berstatus `siap` (sudah diuji coba ke siswa dan direvisi). Jaga `soal.js` dan [docs/BANK_SOAL_DRAFT.md](docs/BANK_SOAL_DRAFT.md) tetap sama.
+10. Kerjakan per **tugas kecil**, lalu jalankan/cek hasilnya sebelum lanjut.
 
 ## Setelah setiap sesi kerja (WAJIB)
 Tambahkan entri di [docs/CATATAN_PROGRES.md](docs/CATATAN_PROGRES.md) dengan format:
