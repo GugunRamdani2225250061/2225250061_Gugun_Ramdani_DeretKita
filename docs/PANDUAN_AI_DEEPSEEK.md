@@ -2,7 +2,8 @@
 
 ## 🏆 Cara TERBAIK: Cloudflare (gratis, online 24 jam, HP & APK, tanpa login siswa)
 Server Kak Deret dipasang di **Cloudflare Workers**, dan AI-nya dijalankan **Cloudflare Workers AI**.
-- **Model:** DeepSeek R1 (`@cf/deepseek-ai/deepseek-r1-distill-qwen-32b`, gratis), dengan cadangan otomatis Llama 3.3 70B dan Qwen3.
+- **Alamat server:** **https://deretkita-ai.pages.dev** (sudah online). Dipakai *.pages.dev karena *.workers.dev **diblokir** sebagian penyedia internet di Indonesia (terbukti di XL).
+- **Model:** **Gemma SEA-LION v4 27B** (`@cf/aisingapore/gemma-sea-lion-v4-27b-it`, dilatih untuk Asia Tenggara, bahasa Indonesianya sangat baik, gratis), dengan cadangan otomatis Llama 3.3 70B dan Qwen3. *DeepSeek di Cloudflare: R1 & V4 Flash dihentikan 20 Nov 2026, V4.1 hanya paket berbayar.*
 - **Gratis:** 10.000 *neuron* per hari (cukup untuk ratusan pertanyaan; reset setiap hari pukul 07.00 WIB). Jika habis, Kak Deret berhenti sampai besok, **tanpa tagihan**.
 - **Tanpa API key di aplikasi:** "kunci" AI tersimpan aman di akun Cloudflare.
 - **Siswa tidak perlu login.** Berfungsi di **web online, HP, dan APK**, dari mana saja, tanpa laptop.
@@ -10,7 +11,7 @@ Server Kak Deret dipasang di **Cloudflare Workers**, dan AI-nya dijalankan **Clo
 **Cara memasang (sekali saja, ±10 menit):**
 1. Klik dua kali **`pasang-cloudflare.bat`** di folder utama proyek.
 2. Browser terbuka: **daftar akun Cloudflare gratis** (atau masuk), verifikasi email, lalu klik **Allow**.
-3. Jika ditanya membuat subdomain *workers.dev*, jawab **Y** dan ketik nama (mis. `deretkita`).
+3. Skrip mengunggah server ke **Cloudflare Pages** (alamat `https://deretkita-ai.pages.dev`).
 4. Skrip otomatis mengunggah server, **menguji jawaban AI**, menyimpan alamatnya, lalu bertanya "Upload ke GitHub?", jawab **Y**.
 5. Tunggu ±5 menit. Web online & APK baru otomatis memakai Kak Deret dari Cloudflare.
 

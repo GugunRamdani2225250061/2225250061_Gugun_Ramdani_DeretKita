@@ -40,3 +40,4 @@ kunci-apk-sandi.txt
 # Cloudflare Workers (dibuat ulang otomatis)
 services/cloudflare-ai/dist-uji/
 services/cloudflare-ai/.wrangler/
+services/cloudflare-ai-pages/.wrangler/

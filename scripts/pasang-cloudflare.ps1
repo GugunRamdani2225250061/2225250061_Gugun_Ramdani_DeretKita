@@ -22,17 +22,20 @@ Write-Host '      - Belum punya akun? Pilih Sign up (gratis), verifikasi email, 
 Write-Host '      - Klik "Allow" untuk mengizinkan wrangler.'
 npx wrangler login
 
-Write-Host "`n[3/4] Mengunggah server Kak Deret..." -ForegroundColor Yellow
-Write-Host '      Jika ditanya membuat subdomain workers.dev, jawab Y lalu ketik nama (mis. deretkita).'
-npx wrangler deploy
-# jalankan sekali lagi untuk membaca alamat server (aman, hasilnya sama)
-$hasil = (npx wrangler deploy 2>&1 | Out-String)
-$url = ([regex]::Match($hasil, 'https://[a-z0-9.-]+\.workers\.dev')).Value
+Write-Host "`n[3/4] Mengunggah server Kak Deret ke Cloudflare Pages (*.pages.dev)..." -ForegroundColor Yellow
+Write-Host '      (Bukan *.workers.dev karena domain itu diblokir sebagian penyedia internet di Indonesia.)'
+$wrangler = "$root\services\cloudflare-ai\node_modules\.bin\wrangler.cmd"
+Set-Location "$root\services\cloudflare-ai-pages"
+& $wrangler pages project create deretkita-ai --production-branch main 2>&1 | Out-Null  # abaikan jika sudah ada
+$hasil = (& $wrangler pages deploy --branch main --commit-dirty=true 2>&1 | Out-String)
+Write-Host $hasil
+$m = [regex]::Match($hasil, 'https://[a-z0-9]+\.([a-z0-9-]+)\.pages\.dev')
+$url = if ($m.Success) { "https://$($m.Groups[1].Value).pages.dev" } else { '' }
 if (-not $url) {
   Write-Host "`nAlamat server tidak terbaca otomatis." -ForegroundColor Red
-  $url = (Read-Host 'Salin alamat https://....workers.dev yang muncul di atas, tempel di sini').Trim()
+  $url = (Read-Host 'Tempel alamat https://NAMA.pages.dev (tanpa kode acak di depan)').Trim().TrimEnd('/')
 }
-if ($url -notmatch '^https://[a-z0-9.-]+\.workers\.dev$') {
+if ($url -notmatch '^https://[a-z0-9-]+\.pages\.dev$') {
   Write-Host 'Alamat tidak valid. Ulangi pasang-cloudflare.bat.' -ForegroundColor Red
   Read-Host 'Tekan Enter untuk menutup'; exit 1
 }

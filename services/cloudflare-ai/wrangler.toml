@@ -9,7 +9,7 @@ compatibility_date = "2026-11-01"
 binding = "AI"
 
 [vars]
-# Kosongkan untuk urutan bawaan (DeepSeek R1 gratis -> Llama 3.3 70B -> Qwen3).
+# Kosongkan untuk urutan bawaan (Gemma SEA-LION 27B -> Llama 3.3 70B -> Qwen3), semua gratis.
 # Contoh mengganti: AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
 AI_MODEL = ""
 AI_BATAS_PER_10_MENIT = "20"

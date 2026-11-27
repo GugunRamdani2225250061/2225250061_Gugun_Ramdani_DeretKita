@@ -1,0 +1,13 @@
+# Server Kak Deret versi Cloudflare PAGES (alamat *.pages.dev).
+# Kode server sama dengan services/cloudflare-ai (Workers). Dipakai karena *.workers.dev
+# diblokir sebagian penyedia internet di Indonesia (mis. XL).
+name = "deretkita-ai"
+pages_build_output_dir = "public"
+compatibility_date = "2026-11-01"
+
+[ai]
+binding = "AI"
+
+[vars]
+AI_MODEL = ""
+AI_BATAS_PER_10_MENIT = "20"

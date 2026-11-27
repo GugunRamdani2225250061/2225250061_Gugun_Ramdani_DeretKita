@@ -4,6 +4,19 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — Kak Deret ONLINE di Cloudflare & tersambung ke web + APK
+- **Yang dikerjakan**:
+  - Login Cloudflare (akun Gugun) lewat `wrangler login`, lalu server Kak Deret **diunggah dan online**.
+  - Ditemukan: **semua `*.workers.dev` diblokir XL** (diarahkan ke `blockpage.xlaxiata.id`), sedangkan `*.pages.dev` tidak. Maka server dipasang juga di **Cloudflare Pages**: **https://deretkita-ai.pages.dev** (`services/cloudflare-ai-pages/`, Pages Functions memakai kode server yang sama). Alamat workers.dev tetap ada sebagai cadangan.
+  - Diuji langsung di paket gratis: **DeepSeek R1 & V4 Flash dihentikan 20 Nov 2026**, **DeepSeek V4.1 hanya paket berbayar**. Model utama diganti ke **Gemma SEA-LION v4 27B** (gratis, khusus Asia Tenggara, bahasa Indonesia sangat baik) → cadangan Llama 3.3 70B → Qwen3.
+  - `apps/web/src/lib/server-ai.json` = `https://deretkita-ai.pages.dev`, jadi **web online & APK otomatis memakai server Cloudflare** (tanpa login, tanpa API key di aplikasi). Mode diagnosis `/ai?diagnosis=1` untuk melihat model yang gagal.
+  - `pasang-cloudflare.bat` kini memasang ke Pages.
+- **Hasil uji (sungguhan, dari jaringan XL)**: `/ai/status` aktif; pertanyaan mediasi dijawab Gemma SEA-LION dalam ±3 detik, membimbing tanpa membocorkan jawaban; CORS `*` (web & APK). Uji worker 5/5.
+- **Cara mengecek (untuk Gugun)**: buka web online / APK terbaru di HP → Tanya Kak Deret → tidak ada login, jawaban datang dari Cloudflare. Status server: https://deretkita-ai.pages.dev/ai/status
+- **Yang belum / masalah**: kuota gratis 10.000 neuron/hari (bila habis → otomatis pakai cadangan gratis Pollinations). Model gratis tetap perlu dicek kualitas jawabannya saat uji coba. Jika suatu hari *.pages.dev juga diblokir, perlu domain sendiri.
+
+---
+
 ## 27 November 2026 — Server Kak Deret di Cloudflare Workers AI
 - **Pertanyaan Gugun**: bisakah AI pakai Cloudflare & dipakai di HP? **Bisa**, dan ini sekarang cara yang disarankan.
 - **Yang dikerjakan**:

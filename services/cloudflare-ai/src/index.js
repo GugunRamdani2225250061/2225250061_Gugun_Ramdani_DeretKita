@@ -3,9 +3,12 @@
 // API-nya sama dengan server Python (services/api):  GET /ai/status   POST /ai   GET /health
 import { susunPesan } from '../../../apps/web/src/lib/promptRMT.js'
 
-// Urutan model (cadangan jika satu gagal / kuota). DeepSeek R1 distill = gratis di paket Free.
+// Urutan model (cadangan jika satu gagal / kuota). Diuji langsung di paket Free (27 Nov 2026):
+// - Gemma SEA-LION v4 27B: dilatih untuk Asia Tenggara, bahasa Indonesianya paling baik, gratis
+// - Llama 3.3 70B & Qwen3 30B: gratis, cadangan
+// Catatan: DeepSeek R1/V4 Flash di Workers AI dihentikan 20 Nov 2026; DeepSeek V4.1 hanya paket berbayar.
 export const MODEL_DEFAULT = [
-  '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b',
+  '@cf/aisingapore/gemma-sea-lion-v4-27b-it',
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
   '@cf/qwen/qwen3-30b-a3b-fp8',
 ]
@@ -57,15 +60,18 @@ async function tanya(request, env) {
   }
 
   let galat = null
+  const gagal = [] // untuk diagnosis: /ai?diagnosis=1
   for (const model of daftarModel(env)) {
     try {
       // DeepSeek R1 "berpikir" dulu sebelum menjawab -> beri ruang token lebih banyak
       const max_tokens = model.includes('deepseek-r1') ? 1500 : 500
       const hasil = await env.AI.run(model, { messages, max_tokens, temperature: 0.5 })
       const teks = teksJawaban(hasil)
-      if (teks) return json({ jawaban: teks, model })
+      if (teks) return json({ jawaban: teks, model, ...(new URL(request.url).searchParams.has('diagnosis') ? { gagal } : {}) })
+      gagal.push({ model, galat: 'jawaban kosong', mentah: JSON.stringify(hasil).slice(0, 300) })
     } catch (e) {
       galat = e
+      gagal.push({ model, galat: String(e?.message || e).slice(0, 300) })
     }
   }
   const pesanGalat = String(galat?.message || '')

@@ -11,7 +11,7 @@ test('status & CORS', async () => {
   const r = await worker.fetch(minta('/ai/status'), { AI: {} })
   const d = await r.json()
   assert.equal(d.aktif, true)
-  assert.equal(d.model, '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b')
+  assert.equal(d.model, '@cf/aisingapore/gemma-sea-lion-v4-27b-it')
   assert.equal(r.headers.get('Access-Control-Allow-Origin'), '*')
   const pre = await worker.fetch(new Request('https://x.dev/ai', { method: 'OPTIONS' }), {})
   assert.equal(pre.status, 204)
@@ -27,12 +27,12 @@ test('POST /ai memakai prompt RMT & membuang blok berpikir DeepSeek', async () =
   assert.equal(dipanggil[0].model, MODEL_DEFAULT[0])
   const sistem = dipanggil[0].opsi.messages[0].content
   assert.ok(sistem.includes('Rigorous Mathematical Thinking') && sistem.includes('Tahap 3') && sistem.includes('JANGAN disebutkan'))
-  assert.equal(dipanggil[0].opsi.max_tokens, 1500)
+  assert.equal(dipanggil[0].opsi.max_tokens, 500)
 })
 
 test('model cadangan dipakai jika model pertama gagal', async () => {
   const dicoba = []
-  const AI = { run: async (model) => { dicoba.push(model); if (model.includes('deepseek')) throw new Error('model error'); return { response: 'Jawaban cadangan' } } }
+  const AI = { run: async (model) => { dicoba.push(model); if (model.includes('sea-lion')) throw new Error('model error'); return { response: 'Jawaban cadangan' } } }
   const d = await (await worker.fetch(minta('/ai', { mode: 'tanya', pesan: 'halo' }, '5.5.5.5'), { AI })).json()
   assert.equal(d.jawaban, 'Jawaban cadangan')
   assert.deepEqual(dicoba, MODEL_DEFAULT.slice(0, 2))
