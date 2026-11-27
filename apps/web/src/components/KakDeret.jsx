@@ -5,6 +5,7 @@
 //   3) DeepSeek lewat Puter.js, HANYA jika dinyalakan di Pengaturan (perlu login akun Puter)
 import { useEffect, useRef, useState } from 'react'
 import Teks from './Teks.jsx'
+import AvatarKakDeret from './AvatarKakDeret.jsx'
 import { cekAI, diAPK, tanyaAI } from '../lib/ai.js'
 import { getState } from '../lib/store.js'
 import { GalatJeda, sisaJeda, tanyaGratis } from '../lib/gratis.js'
@@ -86,15 +87,27 @@ export default function KakDeret({ mode = 'mediasi', konteks, aksiCepat = [], on
     }
   }
 
-  if (!buka) return <button className="btn-ai" onClick={() => setBuka(true)}>🤖 {label}</button>
+  if (!buka) {
+    return (
+      <button className="btn-ai" onClick={() => setBuka(true)}>
+        <AvatarKakDeret ukuran={42} />
+        <span className="btn-ai-teks"><strong>{label}</strong><small>Bingung? Aku bantu kamu berpikir</small></span>
+        <span className="btn-ai-panah" aria-hidden>›</span>
+      </button>
+    )
+  }
 
   const siapObrol = jalur === 'server' || jalur === 'gratis' || (jalur === 'puter' && masuk)
+  const keadaan = muat ? 'berpikir' : riwayat.length ? 'senang' : 'diam'
 
   return (
     <div className="panel-ai">
       <div className="panel-ai-kepala">
-        <span className="avatar-ai" aria-hidden>🤖</span>
-        <div><strong>Kak Deret</strong><small>{KET_JALUR[jalur] || 'Membimbingmu berpikir'}</small></div>
+        <span className="kd-bingkai"><AvatarKakDeret ukuran={46} keadaan={keadaan} /></span>
+        <div>
+          <strong>Kak Deret {siapObrol && <span className="titik-online" title="online" />}</strong>
+          <small>{KET_JALUR[jalur] || 'Membimbingmu berpikir'}</small>
+        </div>
         {!selaluBuka && <button className="tutup" aria-label="Tutup Kak Deret" onClick={() => setBuka(false)}>✕</button>}
       </div>
 
@@ -127,10 +140,21 @@ export default function KakDeret({ mode = 'mediasi', konteks, aksiCepat = [], on
       {siapObrol && (
         <>
           <div className="obrolan" aria-live="polite">
-            {riwayat.map((m, i) => (
-              <div key={i} className={`gelembung ${m.role}`}>{m.role === 'assistant' ? <Teks>{m.content}</Teks> : m.content}</div>
-            ))}
-            {muat && <div className="gelembung assistant mengetik">Kak Deret sedang berpikir<span>…</span></div>}
+            {riwayat.length === 0 && (
+              <div className="baris-pesan ai">
+                <AvatarKakDeret ukuran={30} />
+                <div className="gelembung sapaan">Halo! Aku <b>Kak Deret</b> 👋 Pilih pertanyaan di bawah, atau tulis caramu berpikir. Aku akan membantumu menemukan jawabannya sendiri.</div>
+              </div>
+            )}
+            {riwayat.map((m, i) => (m.role === 'assistant'
+              ? <div key={i} className="baris-pesan ai"><AvatarKakDeret ukuran={30} keadaan="senang" /><div className="gelembung assistant"><Teks>{m.content}</Teks></div></div>
+              : <div key={i} className="baris-pesan saya"><div className="gelembung user">{m.content}</div></div>))}
+            {muat && (
+              <div className="baris-pesan ai">
+                <AvatarKakDeret ukuran={30} keadaan="berpikir" />
+                <div className="gelembung assistant mengetik" role="status" aria-label="Kak Deret sedang berpikir"><i /><i /><i /></div>
+              </div>
+            )}
             <div ref={bawah} />
           </div>
           {riwayat.length === 0 && aksiCepat.length > 0 && (
@@ -138,10 +162,14 @@ export default function KakDeret({ mode = 'mediasi', konteks, aksiCepat = [], on
               {aksiCepat.map((a) => <button key={a.label} onClick={() => kirim(a.pesan ?? a.label)} disabled={muat || jeda > 0}>{a.label}</button>)}
             </div>
           )}
-          <div className="baris-isian">
+          <div className="baris-tulis">
             <input value={teks} maxLength={500} placeholder="Tulis pertanyaan atau caramu berpikir…" aria-label="Pesan untuk Kak Deret"
               onChange={(e) => setTeks(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && kirim()} />
-            <button className="btn kecil" onClick={() => kirim()} disabled={muat || !teks.trim() || jeda > 0}>{jeda > 0 ? `${jeda}s` : 'Kirim'}</button>
+            <button className="btn-kirim" onClick={() => kirim()} disabled={muat || !teks.trim() || jeda > 0}
+              aria-label={jeda > 0 ? `Tunggu ${jeda}s` : 'Kirim'}>
+              {jeda > 0 ? <span className="jeda">{jeda}s</span>
+                : <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden><path d="M3 11.5 20 4l-7.5 17-2.2-7.3L3 11.5Z" fill="currentColor" /></svg>}
+            </button>
           </div>
           {jalur === 'gratis' && riwayat.length > 0 && jeda > 0 && <p className="kecil">⏳ Pertanyaan berikutnya bisa dikirim dalam {jeda} detik.</p>}
         </>

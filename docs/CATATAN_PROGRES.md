@@ -4,6 +4,16 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — Tampilan Kak Deret baru + APK baru
+- **Yang dikerjakan**:
+  - Karakter **Kak Deret** (`components/AvatarKakDeret.jsx`): robot SVG dengan layar wajah, mata berkedip, antena oranye (warna simbol rasio r) yang menyala, menengok saat berpikir, melambai di halaman Tanya.
+  - Panel obrolan baru: kepala bergradasi + titik "online", latar kertas berpetak, gelembung dengan avatar, sapaan pembuka, animasi mengetik (3 titik), tombol saran berwarna, kolom tulis berbentuk pil + tombol kirim bundar. Tombol tertutup berbentuk kartu "Bingung? Aku bantu kamu berpikir". Halaman Tanya punya sambutan besar.
+  - Animasi halus & berhenti otomatis bila perangkat diatur "kurangi gerakan" (prinsip beban kognitif).
+- **Hasil uji**: tampilan dicek di HP 360px (tanpa geser ke samping). Uji lengkap 45/45, AI gratis 8/8, simulasi APK 5/5, HP Wi-Fi 6/6, `npm test` 10/10. Skrip uji disesuaikan karena aplikasi kini memakai server Cloudflare sungguhan.
+- **Cara mengecek (untuk Gugun)**: unduh APK terbaru (link tetap) → pasang → Tanya Kak Deret.
+
+---
+
 ## 27 November 2026 — Kak Deret ONLINE di Cloudflare & tersambung ke web + APK
 - **Yang dikerjakan**:
   - Login Cloudflare (akun Gugun) lewat `wrangler login`, lalu server Kak Deret **diunggah dan online**.
