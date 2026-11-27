@@ -1,0 +1,15 @@
+# Server Kak Deret di Cloudflare Workers (gratis).
+# Pasang: klik dua kali pasang-cloudflare.bat di folder utama proyek.
+name = "deretkita-ai"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# Cloudflare Workers AI: "kunci" AI tersimpan aman di akun Cloudflare, bukan di kode
+[ai]
+binding = "AI"
+
+[vars]
+# Kosongkan untuk urutan bawaan (DeepSeek R1 gratis -> Llama 3.3 70B -> Qwen3).
+# Contoh mengganti: AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+AI_MODEL = ""
+AI_BATAS_PER_10_MENIT = "20"

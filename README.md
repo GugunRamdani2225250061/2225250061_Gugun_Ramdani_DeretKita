@@ -34,6 +34,9 @@ Klik dua kali **`coba/DeretKita.html`**. Aplikasi terbuka di browser dan semua f
 2. **`cek-python.bat`**: cek semua kunci jawaban + contoh analisis uji coba.
 3. **`mulai-api.bat`**: menjalankan API Python. Di aplikasi: **Dasbor Guru → Analisis dengan Python**.
 
+### 🏆 Kak Deret di Cloudflare (gratis, HP & APK, tanpa login): pasang sekali
+Klik dua kali **`pasang-cloudflare.bat`** → daftar/masuk akun Cloudflare gratis → selesai. Server Kak Deret online 24 jam dengan **DeepSeek R1 gratis** (10.000 neuron/hari), dipakai otomatis oleh web online, HP, dan APK. Tidak ada API key di aplikasi. Detail: [docs/PANDUAN_AI_DEEPSEEK.md](docs/PANDUAN_AI_DEEPSEEK.md).
+
 ### 🤖 Kak Deret GRATIS di HP: tanpa login, tanpa API key
 Buka **versi web online** di HP → **Tanya Kak Deret** → langsung bertanya. Memakai AI gratis Pollinations (model GPT-OSS 20B), dengan batas **1 jawaban per 45 detik per jaringan** (ada hitung mundur). Untuk satu kelas di Wi-Fi yang sama, lebih lancar memakai server di laptop (lihat bawah). Jika server Kak Deret tersedia, server yang dipakai. DeepSeek lewat Puter (perlu login) tersedia sebagai pilihan di Pengaturan.
 

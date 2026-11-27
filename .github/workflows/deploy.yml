@@ -37,6 +37,8 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: apps/web/package-lock.json
+      - name: Uji server Kak Deret Cloudflare
+        run: node --test services/cloudflare-ai/test/worker.test.js
       - name: Pasang paket
         run: npm ci
         working-directory: apps/web

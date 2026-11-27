@@ -4,6 +4,19 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — Server Kak Deret di Cloudflare Workers AI
+- **Pertanyaan Gugun**: bisakah AI pakai Cloudflare & dipakai di HP? **Bisa**, dan ini sekarang cara yang disarankan.
+- **Yang dikerjakan**:
+  - `services/cloudflare-ai/`: server Kak Deret untuk **Cloudflare Workers** (API sama dengan server Python). AI lewat **Workers AI** binding `env.AI`, jadi **tidak ada API key** di kode/aplikasi. Model: **DeepSeek R1 distill 32B (gratis)** → cadangan Llama 3.3 70B → Qwen3 30B. Prompt RMT memakai `promptRMT.js` yang sama. Blok "berpikir" DeepSeek dibuang, ada pembatas 20 pertanyaan/10 menit per IP, pesan jelas saat kuota harian habis.
+  - **`pasang-cloudflare.bat`** (+ `scripts/pasang-cloudflare.ps1`): login Cloudflare → unggah → uji jawaban → simpan alamat ke `apps/web/src/lib/server-ai.json` → (opsional) upload ke GitHub. Setelah itu web online, HP, dan **APK** otomatis memakai server Cloudflare.
+  - `lib/ai.js`: urutan alamat server = Pengaturan → `VITE_API_URL` → `server-ai.json` (Cloudflare) → server laptop otomatis. Uji worker ditambahkan ke GitHub Actions.
+- **Fakta dari dokumentasi Cloudflare (Nov 2026)**: gratis 10.000 neuron/hari (reset 00.00 UTC, berhenti tanpa tagihan bila habis); Workers gratis 100.000 permintaan/hari; DeepSeek V4 di Workers AI hanya untuk paket berbayar, sedangkan R1 distill 32B gratis.
+- **Hasil uji**: uji worker 5/5 (prompt RMT, model cadangan, kuota habis, CORS, batas IP); `wrangler deploy --dry-run` berhasil (8 KiB, binding AI terbaca); simulasi browser: **web HP & APK** menjawab lewat server Cloudflare tanpa login & tanpa isi alamat manual.
+- **Cara mengecek (untuk Gugun)**: klik dua kali `pasang-cloudflare.bat` → ikuti langkahnya → jawab Y untuk upload → ±5 menit kemudian buka web/APK → Tanya Kak Deret.
+- **Yang belum / masalah**: **belum diunggah ke Cloudflare sungguhan** (butuh akun Cloudflare Gugun; dibuat sendiri). Jumlah pertanyaan per hari tergantung model (DeepSeek R1 "berpikir" dulu sehingga lebih boros neuron daripada Llama). Kualitas jawaban model gratis tetap perlu diperiksa saat uji coba.
+
+---
+
 ## 27 November 2026 — Kak Deret gratis TANPA login (Pollinations)
 - **Permintaan Gugun**: gratis saja, tanpa login Puter.
 - **Yang dikerjakan**:

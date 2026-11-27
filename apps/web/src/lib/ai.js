@@ -1,5 +1,7 @@
 // Menghubungi Kak Deret lewat API Python. API key TIDAK ada di sini (hanya di server).
 import { getState } from './store.js'
+// Alamat server Kak Deret online (Cloudflare Workers), diisi otomatis oleh pasang-cloudflare.bat
+import serverAI from './server-ai.json'
 
 /** true jika berjalan sebagai aplikasi Android (APK, Capacitor) */
 export const diAPK = () => typeof window !== 'undefined' && Boolean(window.Capacitor?.isNativePlatform?.())
@@ -14,6 +16,9 @@ function tentukanAPI() {
   const env = import.meta.env.VITE_API_URL
   if (env) return env.replace(/\/$/, '')
   if (typeof location === 'undefined') return 'http://localhost:8000'
+  // di laptop (mulai-semua.bat) tetap pakai server laptop; selain itu pakai server Cloudflare jika sudah dipasang
+  const diLaptop = (import.meta.env.DEV || location.port === '5173' || location.port === '4173') && location.protocol.startsWith('http')
+  if (serverAI.url && !diLaptop) return serverAI.url.replace(/\/$/, '')
   if (diAPK()) return '' // APK: alamat server diatur di menu Pengaturan
   const { protocol, hostname, port } = location
   if (protocol.startsWith('http') && (import.meta.env.DEV || port === '5173' || port === '4173')) return '/api'
