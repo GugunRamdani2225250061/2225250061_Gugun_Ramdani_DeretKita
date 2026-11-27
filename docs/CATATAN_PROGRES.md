@@ -4,6 +4,16 @@ Setiap sesi kerja AI atau manusia ditambahkan di **paling atas**. Baca catatan t
 
 ---
 
+## 27 November 2026 — ✅ APK diuji di HP Android sungguhan
+- **Hasil**: Gugun memasang APK terbaru (tampilan Kak Deret baru + server Cloudflare `deretkita-ai.pages.dev`) di HP Android sendiri, dan **semua fitur berjalan**.
+- **Langkah berikutnya**:
+  1. Jalankan `siapkan-kunci-apk.bat` sekali **sebelum membagikan APK ke siswa**, agar versi berikutnya bisa dipasang menimpa tanpa menghapus data.
+  2. Uji coba soal ke siswa yang diwawancara (mode uji coba aktif) → Dasbor Guru → Unduh CSV → `python analisis/analisis_uji_coba.py`.
+  3. Revisi soal sesuai hasil, ubah status `draft` → `siap`.
+  4. Pantau kuota Cloudflare & periksa beberapa jawaban Kak Deret selama uji coba.
+
+---
+
 ## 27 November 2026 — Tampilan Kak Deret baru + APK baru
 - **Yang dikerjakan**:
   - Karakter **Kak Deret** (`components/AvatarKakDeret.jsx`): robot SVG dengan layar wajah, mata berkedip, antena oranye (warna simbol rasio r) yang menyala, menengok saat berpikir, melambai di halaman Tanya.
